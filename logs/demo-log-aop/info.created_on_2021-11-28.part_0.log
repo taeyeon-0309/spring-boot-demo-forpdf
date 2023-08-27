@@ -1,0 +1,96 @@
+2021-11-28 14:46:35,520 [main] INFO  [c.xkcoding.log.aop.SpringBootDemoLogAopApplication] StartupInfoLogger.java:50 - Starting SpringBootDemoLogAopApplication on IU-PC with PID 24484 (started by 1 in D:\IDEA Workspace\spring-boot-demo)
+2021-11-28 14:46:35,524 [main] INFO  [c.xkcoding.log.aop.SpringBootDemoLogAopApplication] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+2021-11-28 14:46:36,710 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8080 (http)
+2021-11-28 14:46:36,726 [main] INFO  [org.apache.catalina.core.StandardService] DirectJDKLog.java:173 - Starting service [Tomcat]
+2021-11-28 14:46:36,727 [main] INFO  [org.apache.catalina.core.StandardEngine] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.12
+2021-11-28 14:46:36,732 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - Loaded APR based Apache Tomcat Native library [1.2.14] using APR version [1.6.2].
+2021-11-28 14:46:36,732 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-11-28 14:46:36,733 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-11-28 14:46:37,777 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - OpenSSL successfully initialized [OpenSSL 1.0.2l  25 May 2017]
+2021-11-28 14:46:37,875 [main] INFO  [o.a.c.c.ContainerBase.[Tomcat].[localhost].[/demo]] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+2021-11-28 14:46:37,876 [main] INFO  [org.springframework.web.context.ContextLoader] ServletWebServerApplicationContext.java:285 - Root WebApplicationContext: initialization completed in 2301 ms
+2021-11-28 14:46:37,907 [main] INFO  [o.s.boot.web.servlet.ServletRegistrationBean] ServletRegistrationBean.java:186 - Servlet dispatcherServlet mapped to [/]
+2021-11-28 14:46:37,912 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'characterEncodingFilter' to: [/*]
+2021-11-28 14:46:37,913 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2021-11-28 14:46:37,913 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'formContentFilter' to: [/*]
+2021-11-28 14:46:37,914 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'requestContextFilter' to: [/*]
+2021-11-28 14:46:38,143 [main] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskExecutor] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+2021-11-28 14:46:38,340 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] TomcatWebServer.java:204 - Tomcat started on port(s): 8080 (http) with context path '/demo'
+2021-11-28 14:46:38,342 [main] INFO  [c.xkcoding.log.aop.SpringBootDemoLogAopApplication] StartupInfoLogger.java:59 - Started SpringBootDemoLogAopApplication in 3.763 seconds (JVM running for 4.774)
+2021-11-28 14:47:18,421 [http-nio-8080-exec-3] INFO  [o.a.c.c.ContainerBase.[Tomcat].[localhost].[/demo]] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-11-28 14:47:18,421 [http-nio-8080-exec-3] INFO  [org.springframework.web.servlet.DispatcherServlet] FrameworkServlet.java:521 - Initializing Servlet 'dispatcherServlet'
+2021-11-28 14:47:18,428 [http-nio-8080-exec-3] INFO  [org.springframework.web.servlet.DispatcherServlet] FrameworkServlet.java:543 - Completed initialization in 7 ms
+2021-11-28 14:47:18,517 [http-nio-8080-exec-3] INFO  [com.xkcoding.log.aop.aspectj.AopLog] AopLog.java:85 - Request Log Info : {"classMethod":"com.xkcoding.log.aop.controller.TestController.test","os":"UNKNOWN","ip":"172.24.128.1","requestParams":{},"userAgent":"Apache-HttpClient/4.5.13 (Java/11.0.12)","httpMethod":"GET","threadName":"http-nio-8080-exec-3","url":"http://localhost:8080/demo/test","threadId":"28","result":{"who":"me"},"browser":"DOWNLOAD","timeCost":23}
+2021-11-28 14:50:07,614 [http-nio-8080-exec-5] INFO  [org.apache.coyote.http11.Http11Processor] DirectJDKLog.java:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-11-28 14:50:52,030 [http-nio-8080-exec-2] INFO  [org.apache.coyote.http11.Http11Processor] DirectJDKLog.java:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-11-28 14:52:00,324 [Thread-8] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskExecutor] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+2021-11-28 14:54:49,652 [main] INFO  [c.xkcoding.log.aop.SpringBootDemoLogAopApplication] StartupInfoLogger.java:50 - Starting SpringBootDemoLogAopApplication on IU-PC with PID 23292 (started by 1 in D:\IDEA Workspace\spring-boot-demo)
+2021-11-28 14:54:49,658 [main] INFO  [c.xkcoding.log.aop.SpringBootDemoLogAopApplication] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+2021-11-28 14:54:51,884 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8080 (http)
+2021-11-28 14:54:51,935 [main] INFO  [org.apache.catalina.core.StandardService] DirectJDKLog.java:173 - Starting service [Tomcat]
+2021-11-28 14:54:51,935 [main] INFO  [org.apache.catalina.core.StandardEngine] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.12
+2021-11-28 14:54:51,966 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - Loaded APR based Apache Tomcat Native library [1.2.14] using APR version [1.6.2].
+2021-11-28 14:54:51,966 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-11-28 14:54:51,967 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-11-28 14:54:53,009 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - OpenSSL successfully initialized [OpenSSL 1.0.2l  25 May 2017]
+2021-11-28 14:54:53,211 [main] INFO  [o.a.c.c.ContainerBase.[Tomcat].[localhost].[/demo]] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+2021-11-28 14:54:53,211 [main] INFO  [org.springframework.web.context.ContextLoader] ServletWebServerApplicationContext.java:285 - Root WebApplicationContext: initialization completed in 3482 ms
+2021-11-28 14:54:53,256 [main] INFO  [o.s.boot.web.servlet.ServletRegistrationBean] ServletRegistrationBean.java:186 - Servlet dispatcherServlet mapped to [/]
+2021-11-28 14:54:53,264 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'characterEncodingFilter' to: [/*]
+2021-11-28 14:54:53,264 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2021-11-28 14:54:53,265 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'formContentFilter' to: [/*]
+2021-11-28 14:54:53,265 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'requestContextFilter' to: [/*]
+2021-11-28 14:54:53,917 [main] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskExecutor] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+2021-11-28 14:54:54,268 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] TomcatWebServer.java:204 - Tomcat started on port(s): 8080 (http) with context path '/demo'
+2021-11-28 14:54:54,274 [main] INFO  [c.xkcoding.log.aop.SpringBootDemoLogAopApplication] StartupInfoLogger.java:59 - Started SpringBootDemoLogAopApplication in 5.927 seconds (JVM running for 19.452)
+2021-11-28 14:55:01,785 [http-nio-8080-exec-1] INFO  [org.apache.coyote.http11.Http11Processor] DirectJDKLog.java:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-11-28 14:55:01,827 [http-nio-8080-exec-9] INFO  [org.apache.coyote.http11.Http11Processor] DirectJDKLog.java:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-11-28 14:59:53,024 [Thread-28] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskExecutor] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'

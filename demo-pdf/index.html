@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin-when-cross-origin" />
+  <meta name="description" content="一、XML Extensible Markup Language 可扩展标记语言 可扩展：标签都是自定义的。 如&amp;lt;user&amp;gt; &amp;lt;student&amp;gt;......1.2、功能存储数据 1、配置文件 2、在网络中传输。如发布的天气信息。1.3、xml与html的区别 1、xml标签都" />
+  <meta property="og:description" content="一、XML Extensible Markup Language 可扩展标记语言 可扩展：标签都是自定义的。 如&amp;lt;user&amp;gt; &amp;lt;student&amp;gt;......1.2、功能存储数据 1、配置文件 2、在网络中传输。如发布的天气信息。1.3、xml与html的区别 1、xml标签都" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12-XML、Jsoup - payn - 博客园</title>
+  <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://www.cnblogs.com/css/blog-common.min.css?v=aGdnXD9SVgs8yUBrNC-Igedl89ccEEY9g-5qiPUjNEg" />
+  <link id="MainCss" rel="stylesheet" href="https://www.cnblogs.com/skins/simplememory/bundle-simplememory.min.css?v=SiaEEyuLLyqQ30U6p0_gAunDLOqZtbt7kF5APbDruVo" />
+  <link id="highlighter-theme-cnblogs" type="text/css" rel="stylesheet" href="https://www.cnblogs.com/css/hljs/cnblogs.css?v=5J1NDtbnnIr2Rc2SdhEMlMxD4l9Eydj88B31E7_NhS4" />
+  <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/-zhuang/custom.css?v=uleubVzEaMKd4DWEqnOolWXtqMA=" />
+  <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="https://www.cnblogs.com/skins/SimpleMemory/bundle-simplememory-mobile.min.css?v=foz1W_Fu2JAPmvBfSxSaxsHH-O7GuQn6sSOfgMtSLfY" />
+  <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/-zhuang/rss" />
+  <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/-zhuang/rsd.xml" />
+  <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/-zhuang/wlwmanifest.xml" />
+  <script>var currentBlogId = 252316; var currentBlogApp = '-zhuang'; var isLogined = false; var isBlogOwner = false; var skinName = 'SimpleMemory'; var visitorUserId = ''; var hasCustomScript = false; try { if (hasCustomScript &amp;amp;&amp;amp; document.referrer &amp;amp;&amp;amp; document.referrer.indexOf('baidu.com') &amp;gt;= 0) { Object.defineProperty(document, 'referrer', { value: '' }); Object.defineProperty(Document.prototype, 'referrer', { get: function () { return ''; } }); } } catch (error) { } window.cb_enable_mathjax = false; window.mathEngine = 0; window.codeHighlightEngine = 1; window.enableCodeLineNumber = false; window.codeHighlightTheme = 'cnblogs'; window.darkModeCodeHighlightTheme = 'vs2015'; window.isDarkCodeHighlightTheme = false; window.isDarkModeCodeHighlightThemeDark = true; window.isDisableCodeHighlighter = false; window.enableCodeThemeTypeFollowSystem = false; window.enableMacStyleCodeBlock = false</script>
+  <script>var currentPostDateAdded = '2018-11-29 11:58';</script>
+  <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+  <script src="https://www-cdn.cnblogs.com/js/blog-common.min.js?v=JmNS6dBkI3Kz3Iqo_JnlvLTnc-JSEIh_SkDbfq7VbRc"></script>
+</head>
+<body class="skin-simplememory no-navbar">
+<a name="top"></a>
+<div id="top_nav" class="navbar forpc navbar-custom">
+  <nav id="nav_main" class="navbar-main">
+    <ul id="nav_left" class="navbar-list navbar-left">
+      <li class="navbar-branding"> <a href="https://www.cnblogs.com/" title="开发者的网上家园" role="banner"> <img src="https://common.cnblogs.com/logo.svg" alt="博客园Logo" /> </a> </li>
+      <li> <a href="https://www.cnblogs.com/" onclick="countClicks('skin-navbar-sitehome')">首页</a> </li>
+      <li> <a href="https://news.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-news')">新闻</a> </li>
+      <li> <a href="https://q.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-q')">博问</a> </li>
+      <li><a href="https://cnblogs.vip/">会员</a></li>
+      <li><a href="https://www.cnblogs.com/cmt/p/17656814.html">直播</a></li>
+      <li> <a href="https://ing.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-ing')">闪存</a> </li>
+      <li> <a href="https://edu.cnblogs.com/" onclick="countClicks('nav', 'skin-navbar-edu')">班级</a> </li>
+    </ul>
+    <ul id="nav_right" class="navbar-list navbar-right">
+      <li>
+        <form id="zzk_search" class="navbar-search dropdown" action="https://zzk.cnblogs.com/s" method="get" role="search">
+          <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="search" tabindex="3" autocomplete="off" />
+          <button id="zzk_search_button" onclick="window.navbarSearchManager.triggerActiveOption()"> <img id="search_icon" class="focus-hidden" src="https://common.cnblogs.com/icons/search.svg" alt="搜索" /> <img class="hidden focus-visible" src="https://common.cnblogs.com/icons/enter.svg" alt="搜索" /> </button>
+          <ul id="navbar_search_options" class="dropdown-menu quick-search-menu">
+            <li tabindex="0" class="active" onclick="zzkSearch(event, document.getElementById('zzk_search_input').value)">
+              <div class="keyword-wrapper">
+                <img src="https://common.cnblogs.com/icons/search.svg" alt="搜索" />
+                <div class="keyword"></div>
+              </div> <span class="search-area">所有博客</span> </li>
+            <li tabindex="1" onclick="zzkBlogSearch(event, '-zhuang', document.getElementById('zzk_search_input').value)">
+              <div class="keyword-wrapper">
+                <img src="https://common.cnblogs.com/icons/search.svg" alt="搜索" />
+                <div class="keyword"></div>
+              </div> <span class="search-area">当前博客</span> </li>
+          </ul>
+        </form> </li>
+      <li id="navbar_login_status" class="navbar-list"> <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔"> <img id="new_post_icon" class="navbar-icon" src="https://common.cnblogs.com/icons/newpost.svg" alt="写随笔" /> </a> <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客"> <img id="myblog_icon" class="navbar-icon" src="https://common.cnblogs.com/icons/myblog.svg" alt="我的博客" /> </a> <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息"> <img id="msg_icon" class="navbar-icon" src="https://common.cnblogs.com/icons/message.svg" alt="短消息" /> <span id="msg_count" style="display: none"></span> </a> <a id="navbar_lite_mode_indicator" data-current-page="blog" style="display: none" href="javascript:void(0)" alt="简洁模式" title="简洁模式启用，您在访问他人博客时会使用简洁款皮肤展示"> <img class="navbar-icon" src="https://common.cnblogs.com/icons/lite-mode-on.svg" alt="简洁模式" /> </a>
+        <div id="user_info" class="navbar-user-info dropdown">
+          <a class="dropdown-button" href="https://home.cnblogs.com/"> <img id="user_icon" class="navbar-avatar" src="https://common.cnblogs.com/icons/avatar-default.svg" alt="用户头像" /> </a>
+          <div class="dropdown-menu">
+            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+            <a href="https://home.cnblogs.com/">我的园子</a>
+            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客"> 简洁模式 <img id="navbar_lite_mode_on" src="https://www.cnblogs.com/images/lite-mode-check.svg" class="hide" /><span id="navbar_lite_mode_spinner" class="hide">...</span> </a>
+            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+          </div>
+        </div> <a class="navbar-anonymous" href="https://account.cnblogs.com/signup">注册</a> <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()">登录</a> </li>
+    </ul>
+  </nav>
+</div>
+<!--done-->
+<div id="home">
+  <div id="header">
+    <div id="blogTitle">
+      <a id="lnkBlogLogo" href="https://www.cnblogs.com/-zhuang/"><img id="blogLogo" src="https://www.cnblogs.com/skins/custom/images/logo.gif" alt="返回主页" /></a>
+      <!--done-->
+      <h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/-zhuang/">payn</a> </h1>
+      <h2></h2>
+    </div>
+    <!--end: blogTitle 博客的标题和副标题 -->
+    <div id="navigator">
+      <ul id="navList">
+        <li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/"> 博客园</a> </li>
+        <li> <a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/-zhuang/"> 首页</a> </li>
+        <li> <a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1"> 新随笔</a> </li>
+        <li> <a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/payn"> 联系</a></li>
+        <li> <a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/-zhuang/rss/"> 订阅</a>
+          <!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+        <li> <a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/"> 管理</a> </li>
+      </ul>
+      <div class="blogStats">
+        <div id="blog_stats_place_holder">
+          <script>loadBlogStats();</script>
+        </div>
+      </div>
+      <!--end: blogStats -->
+    </div>
+    <!--end: navigator 博客导航栏 -->
+  </div>
+  <!--end: header 头部 -->
+  <div id="main">
+    <div id="mainContent">
+      <div class="forFlow">
+        <div id="post_detail">
+          <!--done-->
+          <div id="topics">
+            <div class="post">
+              <h1 class="postTitle"> <a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/-zhuang/articles/10037451.html"> <span role="heading" aria-level="2">12-XML、Jsoup</span> </a> </h1>
+              <div class="clear"></div>
+              <div class="postBody">
+                <div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
+                  <p> 一、XML<br />　　Extensible Markup Language 可扩展标记语言<br />　　可扩展：标签都是自定义的。 如&lt;user&gt; &lt;student&gt;......<br /><br />1.2、功能<br />存储数据<br />　　1、配置文件<br />　　2、在网络中传输。如发布的天气信息。<br /><br />1.3、xml与html的区别<br />　　1、xml标签都是自定义的，html标签是预定义。<br />　　2、xml的语法严格，html语法松散<br />　　3、xml是存储数据的，html是展示数据<br />　　XML 是独立于软件和硬件的信息传输工具。<br /><br />1.4、语法<br />1.4.1、基本语法：<br />　　1、xml文档的后缀名 .xml<br />　　2、xml<span style="color: rgba(255, 0, 0, 1)">第一行</span>必须定义为文档声明<br />　　3、xml文档中<span style="color: rgba(255, 0, 0, 1)">有且仅有一个根标签</span><br />　　4、属性值必须使用引号(单双都可)引起来<br />　　5、标签必须正确关闭<br />　　6、xml<span style="color: rgba(255, 0, 0, 1)">标签名称区分大小写。大小写敏感。</span></p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_37a651c3-be76-4e8b-bae9-40ef70b03c23" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_37a651c3-be76-4e8b-bae9-40ef70b03c23" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_37a651c3-be76-4e8b-bae9-40ef70b03c23" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">&lt;?</span><span style="color: rgba(255, 0, 255, 1)">xml version='1.0' </span><span style="color: rgba(0, 0, 255, 1)">?&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">users</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">user </span><span style="color: rgba(255, 0, 0, 1)">id</span><span style="color: rgba(0, 0, 255, 1)">='1'</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>zhangsan<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>23<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">gender</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>male<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">gender</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">br</span><span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">user</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">user </span><span style="color: rgba(255, 0, 0, 1)">id</span><span style="color: rgba(0, 0, 255, 1)">='2'</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>lisi<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>24<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">gender</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>female<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">gender</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">user</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">users</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">代码示例</span>
+                  </div>
+                  <p><br />1.4.2、组成部分<br />1、文档声明<br />　　1. 格式：&lt;?xml 属性列表 ?&gt;<br />　　2. 属性列表：<br />　　　　1） version：版本号，<span style="color: rgba(255, 0, 0, 1)">必须</span>的属性。1.1不向下兼容。<br />　　　　2）encoding：编码方式。告知解析引擎当前文档使用的字符集，<span style="color: rgba(255, 0, 0, 1)">默认值：ISO-8859-1</span><br />　　　　3）standalone：是否独立<br />　　　　4）取值：* yes：不依赖其他文件&#xa0; * no：依赖其他文件　　　　　　<br />2、指令(了解)：结合css的&#xa0; ---&gt;&#xa0; 一般不展示数据<br />　　&#xa0;&lt;?xml-stylesheet type="text/css" href="a.css" ?&gt;<br />3、标签：标签名称自定义的<br />规则：<br />　　&#xa0;名称可以包含字母、数字以及其他的字符&#xa0;<br />　　 名称不能以数字或者标点符号开始&#xa0;<br />　　&#xa0;名称不能以字母 xml（或者 XML、Xml 等等）开始&#xa0;<br />　　 名称不能包含空格<br />4、属性：<br />　　id属性值唯一 ---&gt;&#xa0;<span style="color: rgba(255, 0, 0, 1)">并不是真正的id约束。需要加入约束文件。起的作用和HTML中的ID属性是一样的。</span><br />　　　　　　　　ID 仅仅是一个标识符，用于标识不同的便签。它并不是便签数据的组成部分。<br />XML 元素可以在开始标签中包含属性，类似 HTML。<br />属性 (Attribute) 提供关于元素的额外（附加）信息。<br />附注：</p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_55fff611-e8b9-4352-93e2-111c123548f4" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_55fff611-e8b9-4352-93e2-111c123548f4" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_55fff611-e8b9-4352-93e2-111c123548f4" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">person </span><span style="color: rgba(255, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">="female"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">firstname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Anna<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">firstname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">lastname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Smith<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">lastname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">person</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">person</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>female<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">firstname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Anna<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">firstname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">lastname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Smith<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">lastname</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">person</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span> </pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">View Code</span>
+                  </div>
+                  <p>XML元素VS属性<br />没有什么规矩可以告诉我们什么时候该使用属性，而什么时候该使用子元素。我的经验是在 HTML 中，属性用起来很便利，但是在 XML 中，您应该尽量避免使用属性。如果信息感觉起来很像数据，那么请使用子元素吧。<br />比较好的XML写法：</p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_978463fd-57c4-4421-b0a8-47f8d9f9400c" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_978463fd-57c4-4421-b0a8-47f8d9f9400c" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_978463fd-57c4-4421-b0a8-47f8d9f9400c" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">note </span><span style="color: rgba(255, 0, 0, 1)">date</span><span style="color: rgba(0, 0, 255, 1)">="08/08/2008"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">to</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>George<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">to</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">from</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>John<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">from</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">heading</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Reminder<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">heading</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Don't forget the meeting!<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">note</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">note</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">date</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>08/08/2008<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">date</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">to</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>George<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">to</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">from</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>John<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">from</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">heading</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Reminder<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">heading</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Don't forget the meeting!<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">note</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">note</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">date</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">day</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>08<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">day</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">month</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>08<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">month</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>2008<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">date</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">to</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>George<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">to</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">from</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>John<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">from</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">heading</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Reminder<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">heading</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Don't forget the meeting!<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">note</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">View Code</span>
+                  </div>
+                  <p>为什么避免使用XML属性：<br />　　1、属性无法包含多重的值（元素可以）<br />　　2、属性无法描述树结构（元素可以）<br />　　3、属性不易扩展（为未来的变化）<br />　　4、属性难以阅读和维护<br />　　5、文本：<br />　　　　CDATA区：在该区域中的数据会被原样展示&#xa0; &#xa0;==》相当于HTML中的&lt;pre&gt;<br />　　　　格式：&#xa0;&lt;![CDATA[ 数据 ]]&gt;</p>
+                  <div class="cnblogs_code">
+            <pre><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">code</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;![CDATA[</span><span style="color: rgba(128, 128, 128, 1)">if(a&lt;b&amp;&amp;a&gt;c){}</span><span style="color: rgba(0, 0, 255, 1)">]]&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">code</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">code</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 0, 1)">
+        if(a</span><span style="color: rgba(255, 0, 0, 1)">&amp;lt;</span>b <span style="color: rgba(255, 0, 0, 1)">&amp;amp;&amp;amp;</span> a<span style="color: rgba(255, 0, 0, 1)">&amp;gt;</span><span style="color: rgba(0, 0, 0, 1)">c){}
+</span><span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">code</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                  </div>
+                  <p>&#xa0;　　不写cdata区，需要使用转义字符。不便阅读。<br /><br />1.5、XML树结构</p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_fd928359-2faf-433e-8937-8934ce58e4b1" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_fd928359-2faf-433e-8937-8934ce58e4b1" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_fd928359-2faf-433e-8937-8934ce58e4b1" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">bookstore</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">book </span><span style="color: rgba(255, 0, 0, 1)">category</span><span style="color: rgba(0, 0, 255, 1)">="COOKING"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">title </span><span style="color: rgba(255, 0, 0, 1)">lang</span><span style="color: rgba(0, 0, 255, 1)">="en"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Everyday Italian<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">title</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">author</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Giada De Laurentiis<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">author</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>2005<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">price</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>30.00<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">price</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">book</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">book </span><span style="color: rgba(255, 0, 0, 1)">category</span><span style="color: rgba(0, 0, 255, 1)">="CHILDREN"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">title </span><span style="color: rgba(255, 0, 0, 1)">lang</span><span style="color: rgba(0, 0, 255, 1)">="en"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Harry Potter<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">title</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">author</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>J K. Rowling<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">author</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>2005<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">price</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>29.99<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">price</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">book</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">book </span><span style="color: rgba(255, 0, 0, 1)">category</span><span style="color: rgba(0, 0, 255, 1)">="WEB"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">title </span><span style="color: rgba(255, 0, 0, 1)">lang</span><span style="color: rgba(0, 0, 255, 1)">="en"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Learning XML<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">title</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">author</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Erik T. Ray<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">author</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>2003<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">year</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+  <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">price</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>39.95<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">price</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">book</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">bookstore</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">View Code</span>
+                  </div>
+                  <p><img src="https://img2018.cnblogs.com/blog/832145/201811/832145-20181129184655826-639700477.png" alt="" /></p>
+                  <p>XML元素<br />XML 元素指的是从（且包括）开始标签直到（且包括）结束标签的部分。<br />元素可包含其他元素、文本或者两者的混合物。元素也可以拥有属性。<br /><strong><br /></strong>二、约束<strong><br /></strong>概念：规定xml文档的书写规则<br />附注：<br />　　xml标签可以随便定义。约束定义规定可以写那些标签。<br />　　避免产生歧义。信息描述不对等。书写规则。限定标签的书写。在什么地方该写什么标签。<br />按照要求来。<br />作为框架的使用者(程序员)：<br />　　1. 能够在xml中引入约束文档<br />　　2. 能够简单的读懂约束文档<br />分类：<br />　　1、DTD:一种简单的约束技术<br />　　2、Schema:一种复杂的约束技术<br />原理：<br /><img src="https://img2018.cnblogs.com/blog/832145/201811/832145-20181129103137489-447464758.png" alt="" width="620" /><br /><br />2.1、DTD<br />引入dtd文档到xml文档中。&#xa0;<br /> 　　==》存在缺陷：<span style="background-color: rgba(255, 255, 0, 1)">不能规定标签中的内容&#xa0; age--1000 sex--hehe。而scheme可以进行内容上的限定。</span><br />使用一系列合法的元素来<span style="background-color: rgba(255, 255, 0, 1)">定义文档的结构</span>。<br />1）内部dtd：将约束规则定义在xml文档中<br />2）外部dtd：将约束的规则定义在外部的dtd文件中<br />　　本地：<span style="background-color: rgba(255, 255, 0, 1)">&lt;!DOCTYPE 根标签名 SYSTEM "dtd文件的位置"&gt;</span><br />　　网络：&lt;!DOCTYPE 根标签名 PUBLIC "dtd文件名字(随意)" "dtd文件的位置URL"&gt;&#xa0; ==》在某个服务器上存在该dtd文件的话。</p>
+                  <div class="cnblogs_code">
+            <pre><span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">内部</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+<span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="background-color: rgba(255, 255, 0, 1)">&lt;!DOCTYPE students </span>
+    &lt;!ELEMENT students (student+) &gt;
+    &lt;!ELEMENT student (name,age,sex)&gt;
+    &lt;!ELEMENT name (#PCDATA)&gt;
+    &lt;!ELEMENT age (#PCDATA)&gt;
+    &lt;!ELEMENT sex (#PCDATA)&gt;
+    &lt;!ATTLIST student number ID #REQUIRED&gt;
+]&gt;--&gt;</pre>
+                  </div>
+                  <div class="cnblogs_code">
+            <pre><span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">外部</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">ELEMENT students (student+) </span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 0, 1)">      //出现次数
+</span><span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">ELEMENT student (name,age,sex)</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 0, 1)">    //按照顺序出现一次
+</span><span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">ELEMENT name (#PCDATA)</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 0, 1)">    //字符串
+</span><span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">ELEMENT age (#PCDATA)</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">ELEMENT sex (#PCDATA)</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">ATTLIST student number ID #REQUIRED</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span> //&lt;!--number属性名称  ID表示number值唯一  必须--&gt;</pre>
+                  </div>
+                  <p>使用：&#xa0;&#xa0;</p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_8dd1a974-3720-449f-a74d-22b6bb3ae5ca" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_8dd1a974-3720-449f-a74d-22b6bb3ae5ca" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_8dd1a974-3720-449f-a74d-22b6bb3ae5ca" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">&lt;?</span><span style="color: rgba(255, 0, 255, 1)">xml version="1.0" encoding="UTF-8" </span><span style="color: rgba(0, 0, 255, 1)">?&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;!</span><span style="color: rgba(255, 0, 255, 1)">DOCTYPE students SYSTEM "student.dtd"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+<span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">&lt;!DOCTYPE students [
+        &lt;!ELEMENT students (student+) &gt;
+        &lt;!ELEMENT student (name,age,sex)&gt;
+        &lt;!ELEMENT name (#PCDATA)&gt;
+        &lt;!ELEMENT age (#PCDATA)&gt;
+        &lt;!ELEMENT sex (#PCDATA)&gt;
+        &lt;!ATTLIST student number ID #REQUIRED&gt;
+]&gt;</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">students</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">student </span><span style="color: rgba(255, 0, 0, 1)">number</span><span style="color: rgba(0, 0, 255, 1)">="s001"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>zhangsan<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>abc<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>hehe<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">student</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">student </span><span style="color: rgba(255, 0, 0, 1)">number</span><span style="color: rgba(0, 0, 255, 1)">="s002"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>lisi<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>24<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">age</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>female<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">sex</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">student</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">students</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">View Code</span>
+                  </div>
+                  <p><strong><span style="color: rgba(255, 0, 0, 1)"><br /></span></strong>2.2、Schema<br />　　可以进行更加细粒度的约束。约束的增强。<br /><span style="color: rgba(255, 0, 0, 1)">(在根标签)</span>引入：<br />　　1.填写xml文档的根元素<br />　　2.引入xsi前缀. xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"<br />　　3.引入xsd文件命名空间. xsi:schemaLocation="http://www.itcast.cn/xml student.xsd"<br />　　4.为每一个xsd约束声明一个前缀,作为标识 xmlns="http://www.itcast.cn/xml"&#xa0;</p>
+                  <div class="cnblogs_code">
+            <pre><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">students
+    </span><span style="color: rgba(255, 0, 0, 1)">&lt;!--
+        students  根标签
+    --</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)"> 固定格式
+        必须遵守的约束。约束约束文档的约束。
+    </span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span><span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)"> 给别名再起一个别命名
+        如：<span style="background-color: rgba(255, 255, 0, 1)">xmlns:a</span>="http://www.itcast.cn/xml"
+        此处使用默认 </span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span><span style="color: rgba(0, 0, 0, 1)">
+    xmlns="http://www.itcast.cn/xml"
+    </span><span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)"> xsi(<span style="background-color: rgba(255, 255, 0, 1)">根据xsi</span>):schemaLocation(引入文件)=
+    "http://www.itcast.cn/xml(需要使用的命名空间。该参数一个别名，唯一，可以写student。引入多个可能重复。域名或者倒置)  ../dtd/student.xsd(本地。约束文件的位置。(也可是网络服务器上的文件))" </span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span><span style="color: rgba(0, 0, 0, 1)">
+    xsi:schemaLocation(引入文件)="http://www.itcast.cn/xml student.xsd"
+    &gt;
+</span><span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">students</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                  </div>
+                  <p><img src="https://img2018.cnblogs.com/blog/832145/201811/832145-20181129142532805-538392347.png" alt="" width="315" /><img src="https://img2018.cnblogs.com/blog/832145/201811/832145-20181129164350601-2079041041.png" alt="" width="315" /><br />SpringMVC的配置文件：</p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_4289c4f9-dad4-48a8-baf5-eb40ef55f9f2" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_4289c4f9-dad4-48a8-baf5-eb40ef55f9f2" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_4289c4f9-dad4-48a8-baf5-eb40ef55f9f2" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">&lt;?</span><span style="color: rgba(255, 0, 255, 1)">xml version="1.0" encoding="UTF-8"</span><span style="color: rgba(0, 0, 255, 1)">?&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">beans </span><span style="color: rgba(255, 0, 0, 1)">xmlns</span><span style="color: rgba(0, 0, 255, 1)">="http://www.springframework.org/schema/beans"</span><span style="color: rgba(255, 0, 0, 1)">
+    xmlns:xsi</span><span style="color: rgba(0, 0, 255, 1)">="http://www.w3.org/2001/XMLSchema-instance"</span><span style="color: rgba(255, 0, 0, 1)">
+    xmlns:context</span><span style="color: rgba(0, 0, 255, 1)">="http://www.springframework.org/schema/context"</span><span style="color: rgba(255, 0, 0, 1)">
+    xmlns:mvc</span><span style="color: rgba(0, 0, 255, 1)">="http://www.springframework.org/schema/mvc"</span><span style="color: rgba(255, 0, 0, 1)">
+    xsi:schemaLocation</span><span style="color: rgba(0, 0, 255, 1)">="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">context:annotation-config </span><span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">context:component-scan </span><span style="color: rgba(255, 0, 0, 1)">base-package</span><span style="color: rgba(0, 0, 255, 1)">="cn.cisol.mvcdemo"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">context:include-filter </span><span style="color: rgba(255, 0, 0, 1)">type</span><span style="color: rgba(0, 0, 255, 1)">="annotation"</span><span style="color: rgba(255, 0, 0, 1)">
+            expression</span><span style="color: rgba(0, 0, 255, 1)">="org.springframework.stereotype.Controller"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">context:component-scan</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">mvc:annotation-driven </span><span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">mvc:resources </span><span style="color: rgba(255, 0, 0, 1)">mapping</span><span style="color: rgba(0, 0, 255, 1)">="/resources/**"</span><span style="color: rgba(255, 0, 0, 1)"> location</span><span style="color: rgba(0, 0, 255, 1)">="/resources/"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+
+
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">bean
+        </span><span style="color: rgba(255, 0, 0, 1)">class</span><span style="color: rgba(0, 0, 255, 1)">="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="order"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="1"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="mediaTypes"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">map</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">entry </span><span style="color: rgba(255, 0, 0, 1)">key</span><span style="color: rgba(0, 0, 255, 1)">="json"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="application/json"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">entry </span><span style="color: rgba(255, 0, 0, 1)">key</span><span style="color: rgba(0, 0, 255, 1)">="xml"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="application/xml"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">entry </span><span style="color: rgba(255, 0, 0, 1)">key</span><span style="color: rgba(0, 0, 255, 1)">="htm"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="text/html"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">map</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">property</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="defaultViews"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">list</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">bean
+                    </span><span style="color: rgba(255, 0, 0, 1)">class</span><span style="color: rgba(0, 0, 255, 1)">="org.springframework.web.servlet.view.json.MappingJackson2JsonView"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">bean</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">list</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">property</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="ignoreAcceptHeader"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="true"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">bean</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">bean
+        </span><span style="color: rgba(255, 0, 0, 1)">class</span><span style="color: rgba(0, 0, 255, 1)">="org.springframework.web.servlet.view.InternalResourceViewResolver"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="viewClass"</span><span style="color: rgba(255, 0, 0, 1)">
+            value</span><span style="color: rgba(0, 0, 255, 1)">="org.springframework.web.servlet.view.JstlView"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="prefix"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="/WEB-INF/jsps/"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="suffix"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">=".jsp"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">bean</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">bean </span><span style="color: rgba(255, 0, 0, 1)">id</span><span style="color: rgba(0, 0, 255, 1)">="multipartResolver"</span><span style="color: rgba(255, 0, 0, 1)">
+        class</span><span style="color: rgba(0, 0, 255, 1)">="org.springframework.web.multipart.commons.CommonsMultipartResolver"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="maxUploadSize"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="209715200"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="defaultEncoding"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="UTF-8"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">property </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="resolveLazily"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="true"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">bean</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">beans</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">View Code</span>
+                  </div>
+                  <p>URI对。成对出现。<br />xml格式&#xa0; 学习成本较低。dtd语法不一样<br />scheme可以设置取值的范围<br /><br />namespace&#xa0; 引入的约束文件存在同名的标签。这是后将约束文件整体变成另一个命名空间。<br />解析框架完成。</p>
+                  <p><br />三、解析<br />解析：操作xml文档，将文档中的数据读取到内存中<br />3.1、操作xml文档<br />　　1）解析(读取)：将文档中的数据读取到内存中<br />　　2）写入：将内存中的数据保存到xml文档中。持久化的存储<br /><br />3.2、解析xml的方式：DOM思想 SAX思想<br />　　1）DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树<br />　　　　优点：操作方便，可以对文档进行CRUD的所有操作<br />　　　　缺点：占内存<br />　　2）SAX：逐行读取，基于事件驱动的。<br />　　　　优点：不占内存。<br />　　　　缺点：只能读取，不能增删改<br />附注：<br />　　SAX解析思想：读一行释放一行。<br />　　基于事件的驱动。是开始的标签就会触发一些事件。知道了是什么标签。<br />　　服务器内存大一般使用DOM。移动端使用SAX占用内存小。<br /><br />3.3、xml常见的解析器：<br />　　1、JAXP：sun公司提供的解析器，支持dom和sax两种思想。<br />　　2、DOM4J：一款非常优秀的解析器。<br />　　3、Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。<br />没有依赖的包。<br />　　4、PULL：Android操作系统内置的解析器，sax方式的。<br />解析进内存。得到dom树Document对象。<br /><br />继承关系<br />　　Elemet--&gt;Document<br />　　字符串通过转义字符进行嵌套。<br /><br />四、Jsoup<br />4.1、Jsoup<br />　　jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。<br /><br />4.2、使用步骤：<br />　　1、导入jar包<br />　　2、获取Document对象<br />　　3、获取对应的标签Element对象<br />　　4、获取数据<br /><br />配置文件.xml放在src下。或者后期放在同一的文件夹下。<br />实例代码：</p>
+                  <div class="cnblogs_code">
+                    <img id="code_img_closed_7e0aa9c9-7348-41ba-804f-081cf93efdac" class="code_img_closed" src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" />
+                    <img id="code_img_opened_7e0aa9c9-7348-41ba-804f-081cf93efdac" class="code_img_opened" style="display: none" src="https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" />
+                    <div id="cnblogs_code_open_7e0aa9c9-7348-41ba-804f-081cf93efdac" class="cnblogs_code_hide">
+             <pre><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> JsoupDemo01 {
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">void</span> main(String[] args) <span style="color: rgba(0, 0, 255, 1)">throws</span><span style="color: rgba(0, 0, 0, 1)"> IOException {
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">1获取student.xml的path</span>
+        String path = JsoupDemo01.<span style="color: rgba(0, 0, 255, 1)">class</span>.getClassLoader().getResource("com/itheima/xml/schema/student.xml"<span style="color: rgba(0, 0, 0, 1)">).getPath();
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">2解析xml文档，加载文档进内存，获取dom树---&gt;Document</span>
+        Document document = Jsoup.parse(<span style="color: rgba(0, 0, 255, 1)">new</span> File(path), "utf-8"<span style="color: rgba(0, 0, 0, 1)">);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">3.获取元素对象 Elements</span>
+        Elements elements = document.getElementsByTag("a:student"<span style="color: rgba(0, 0, 0, 1)">);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">4获取第一个name的Element对象</span>
+        Element element = elements.get(0<span style="color: rgba(0, 0, 0, 1)">);
+        System.out.println(elements.size());  </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">1
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">5获取数据</span>
+        System.out.println(element.text());    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">payn 18 female</span>
+<span style="color: rgba(0, 0, 0, 1)">    }
+}</span></pre>
+                    </div>
+                    <span class="cnblogs_code_collapse">View Code</span>
+                  </div>
+                  <p><br /><span style="background-color: rgba(255, 255, 255, 1)">五、对象的使用</span><br /><span style="background-color: rgba(255, 255, 0, 1)"><span style="background-color: rgba(255, 255, 255, 1)">5.1、<span style="color: rgba(0, 128, 0, 1)"><strong>Jsoup</strong></span></span><span style="background-color: rgba(255, 255, 255, 1)">：工具类</span></span>，可以解析html和xml文档，返回Document。</p>
+                  <div class="cnblogs_code">
+            <pre><span style="color: rgba(0, 0, 0, 1)">parse：解析html或xml文档，返回Document
+</span>1<span style="color: rgba(0, 0, 0, 1)">）parse(File in, String charsetName)：解析xml或html文件的。
+</span>2<span style="color: rgba(0, 0, 0, 1)">）parse(String html)：解析xml或html字符串
+</span>3）parse(URL url, <span style="color: rgba(0, 0, 255, 1)">int</span> timeoutMillis)：通过网络路径获取指定的html或xml的文档对象</pre>
+                  </div>
+                  <p><span style="background-color: rgba(255, 255, 255, 1)">5.2、<strong><span style="color: rgba(0, 128, 0, 1)">Document</span></strong>：文档对象。</span>代表内存中的dom树</p>
+                  <div class="cnblogs_code">
+            <pre><span style="color: rgba(0, 0, 0, 1)">获取Element对象
+</span>1）getElementById?<span style="color: rgba(0, 0, 0, 1)">(String id)：根据id属性值获取唯一的element对象
+</span>2）getElementsByTag?<span style="color: rgba(0, 0, 0, 1)">(String tagName)：根据标签名称获取元素对象集合
+</span>3）getElementsByAttribute?<span style="color: rgba(0, 0, 0, 1)">(String key)：根据属性名称获取元素对象集合
+</span>4）getElementsByAttributeValue?(String key, String value)：根据对应的属性名和属性值获取元素对象集合</pre>
+                  </div>
+                  <p><span style="background-color: rgba(255, 255, 255, 1)">5.3、<span style="color: rgba(0, 128, 0, 1)"><strong>Elements</strong></span>：<br />　　元素Element对象的集合。</span>可以当做 ArrayList&lt;Element&gt;来使用<br /><span style="background-color: rgba(255, 255, 0, 1)"><br /><span style="background-color: rgba(255, 255, 255, 1)">5.4、<span style="color: rgba(0, 128, 0, 1)"><strong>Element</strong></span>：元素对象</span><br /></span></p>
+                  <div class="cnblogs_code">
+            <pre>&lt;1&gt;<span style="color: rgba(0, 0, 0, 1)">获取子元素对象
+</span>1）getElementById?<span style="color: rgba(0, 0, 0, 1)">(String id)：根据id属性值获取唯一的element对象
+</span>2）getElementsByTag?<span style="color: rgba(0, 0, 0, 1)">(String tagName)：根据标签名称获取元素对象集合
+</span>3）getElementsByAttribute?<span style="color: rgba(0, 0, 0, 1)">(String key)：根据属性名称获取元素对象集合
+</span>4）getElementsByAttributeValue?<span style="color: rgba(0, 0, 0, 1)">(String key, String value)：根据对应的属性名和属性值获取元素对象集合
+</span>&lt;2&gt;<span style="color: rgba(0, 0, 0, 1)">获取属性值
+String attr(String key)：根据属性名称获取属性值
+</span>&lt;3&gt;<span style="color: rgba(0, 0, 0, 1)">获取文本内容
+</span>1<span style="color: rgba(0, 0, 0, 1)">）String text():获取文本内容
+</span>2）String html():获取标签体的所有内容(包括子标签的字符串内容)</pre>
+                  </div>
+                  <p><span style="background-color: rgba(255, 255, 255, 1)"><span style="background-color: rgba(255, 255, 0, 1)"><br /><span style="background-color: rgba(255, 255, 255, 1)">5.5、<span style="color: rgba(0, 128, 0, 1)"><strong>Node</strong></span>：节点对象</span><br /></span></span>　　是Document和Element的父类。<br /><span style="background-color: rgba(255, 255, 255, 1)"><br /></span>六、快速查询方式<span style="background-color: rgba(255, 255, 255, 1)"><br />6.1、<strong><span style="color: rgba(0, 128, 0, 1)">selector</span></strong></span>：<span style="background-color: rgba(255, 255, 255, 1)">选择器<br /></span>　　方法：Elements select (String cssQuery)&#xa0; 参数:css选择器<br />语法：参考Selector类中定义的语法<span style="background-color: rgba(255, 255, 255, 1)"><br /></span><span style="background-color: rgba(255, 255, 0, 1)"><br /><span style="background-color: rgba(255, 255, 255, 1)">6.2、<strong><span style="color: rgba(0, 128, 0, 1)">XPath</span></strong>：XPath即为XML路径语言，是一种用来确定XML（标准通用标记语言的子集）文档中某部分位置的语言。</span></span><br />　　1、使用Jsoup的Xpath需要额外导入jar包。<br />　　2、查询w3cshool参考手册，使用xpath的语法完成查询<br /><br />附注：<br />　　xpath--&gt;路径语言<br />　　Jsoup对于xpath的支持度不高。只支持1.0的简单语法。JSoup不建议使用xpath。<br />　　dom4j可以使用。<br /><br /></p>
+                </div>
+                <div class="clear"></div>
+                <div id="blog_post_info_block" role="contentinfo">
+                  <div id="blog_post_info"></div>
+                  <div class="clear"></div>
+                  <div id="post_next_prev"></div>
+                </div>
+              </div>
+              <div class="postDesc">
+                posted @
+                <span id="post-date" data-last-update-days="1601.2878612886122" data-date-created="BlogServer.Application.Dto.BlogPost.BlogPostDto" data-date-updated="2019-04-09 11:34">2018-11-29 11:58</span>&#xa0;
+                <a href="https://www.cnblogs.com/-zhuang/">payn</a>&#xa0; 阅读(
+                <span id="post_view_count">237</span>)&#xa0; 评论(
+                <span id="post_comment_count">0</span>)&#xa0;
+                <a href="https://i.cnblogs.com/EditArticles.aspx?postid=10037451" rel="nofollow">编辑</a>&#xa0;
+                <a href="javascript:void(0)" onclick="AddToWz(10037451);return false;">收藏</a>&#xa0;
+                <a href="javascript:void(0)" onclick="reportManager.report({ currentUserId: '', targetType: 'blogPost', targetId: '10037451', targetLink: 'https://www.cnblogs.com/-zhuang/articles/10037451.html', title: '12-XML、Jsoup' })">举报</a>
+              </div>
+            </div>
+          </div>
+          <!--end: topics 文章、评论容器-->
+        </div>
+        <script>var cb_entryId = 10037451, cb_entryCreatedDate = '2018-11-29 11:58', cb_postType = 2, cb_postTitle = '12-XML、Jsoup'; var allowComments = true, cb_blogId = 252316, cb_blogApp = '-zhuang', cb_blogUserGuid = 'fb155f0a-c782-e511-9fc1-ac853d9f53cc'; mermaidRender.render() markdown_highlight() zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)"); updatePostStats( [cb_entryId], function(id, count) { $("#post_view_count").text(count) }, function(id, count) { $("#post_comment_count").text(count) });</script>
+        <a id="!comments"></a>
+        <div id="blog-comments-placeholder"></div>
+        <div id="comment_form" class="commentform">
+          <a name="commentform"></a>
+          <div id="divCommentShow"></div>
+          <div id="comment_nav">
+            <a class="comment-nav-left" href="https://www.cnblogs.com/cmt/p/17520031.html" target="_blank">弹尽粮绝，会员救园：会员上线，命悬一线</a>
+            <div class="comment-nav-right">
+              <span id="span_refresh_tips"></span>
+              <a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a>
+              <a href="#" onclick="return RefreshPage();">刷新页面</a>
+              <a href="https://www.cnblogs.com/-zhuang/articles/10037451.html#top">返回顶部</a>
+            </div>
+          </div>
+          <div id="comment_form_container"></div>
+          <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+          <div id="cnblogs_ch"></div>
+          <div id="opt_under_post"></div>
+          <div id="cnblogs_c1" class="under-post-card">
+            <a href="https://e.cn.miaozhen.com/r/k=2373332&amp;p=8RrlJ&amp;dx=__IPDX__&amp;rt=2&amp;pro=s&amp;ns=__IP__&amp;ni=__IESID__&amp;v=__LOC__&amp;xa=__ADPLATFORM__&amp;tr=__REQUESTID__&amp;mo=__OS__&amp;m0=__OPENUDID__&amp;m0a=__DUID__&amp;m1=__ANDROIDID1__&amp;m1a=__ANDROIDID__&amp;m2=__IMEI__&amp;m4=__AAID__&amp;m5=__IDFA__&amp;m6=__MAC1__&amp;m6a=__MAC__&amp;m11=__OAID__&amp;m14=__CAID__&amp;m5a=__IDFV__&amp;mn=__ANAME__&amp;m5b=__IDFA1__&amp;m11a=__OAID1__&amp;m14a=__CAID1__&amp;o=https://qdrl.qq.com/cobBDpLa" rel="nofollow" target="_blank" onclick="countCreativeClicks('C1-腾讯-数字生态大会-专场');countCreativeClicks('腾讯-数字生态大会-专场-term-')"> <img src="https://img2023.cnblogs.com/blog/35695/202308/35695-20230823181251932-1542453611.jpg" onload="countCreativeImpressions('C1-腾讯-数字生态大会-专场');countCreativeImpressions('腾讯-数字生态大会-专场-term-')" alt="" /> <span id="c1_impression" style="display:none"></span> </a>
+          </div>
+          <div id="under_post_card1"></div>
+          <div id="under_post_card2"></div>
+          <div id="HistoryToday" class="under-post-card"></div>
+          <script type="text/javascript">var commentManager = new blogCommentManager(); commentManager.renderComments(0); fixPostBody(); window.footnoteTipManager.generateFootnoteTips(); window.tocManager.displayDisableTocTips = false; window.tocManager.generateToc(); setTimeout(function() { countViews(cb_blogId, cb_entryId); }, 50); deliverT2(); deliverC1C2(); loadNewsAndKb(); LoadPostCategoriesTags(cb_blogId, cb_entryId); LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid); GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType); loadOptUnderPost(); GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);</script>
+        </div>
+      </div>
+      <!--end: forFlow -->
+    </div>
+    <!--end: mainContent 主体内容容器-->
+    <div id="sideBar">
+      <div id="sideBarMain">
+        <div id="sidebar_news" class="newsItem">
+          <h3 class="catListTitle">公告</h3>
+          <div id="blog-news">
+            <div id="sidebar_news_content">
+            </div>
+          </div>
+          <script>loadBlogNews();</script>
+        </div>
+        <div id="sidebar_c3"></div>
+        <div id="blog-calendar" style="display:none"></div>
+        <script>loadBlogDefaultCalendar();</script>
+        <div id="leftcontentcontainer">
+          <div id="blog-sidecolumn"></div>
+          <script>loadBlogSideColumn();</script>
+        </div>
+      </div>
+      <!--end: sideBarMain -->
+    </div>
+    <!--end: sideBar 侧边栏容器 -->
+    <div class="clear"></div>
+  </div>
+  <!--end: main -->
+  <div class="clear"></div>
+  <div id="footer">
+    <!--done--> Copyright © 2023 payn
+    <br />
+    <span id="poweredby">Powered by .NET 7.0 on Kubernetes</span>
+  </div>
+  <!--end: footer -->
+</div>
+<!--end: home 自定义的最大容器 -->
+<input type="hidden" id="antiforgery_token" value="CfDJ8DuWIYDefEVJtUW7VadsHY_d2vDFp0F0FnU7LwrTXntqyWc8ATvvNQcoOwIhYGCv5p-5-gLszBIQGGQQ3M9YDnCjLRzNPmdsDWML-Rux4uLavUbIQ_phOfGvsqRjTA77kRVmOgMyQbijUe_857Ebv3E" />
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M95P3TTWJZ"></script>
+<script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-M95P3TTWJZ');</script>
+</body>
+</html>

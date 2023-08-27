@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="generator" content="VuePress 2.0.0-beta.63" />
+  <meta name="theme" content="VuePress Theme Hope" />
+  <meta property="og:url" content="https://labuladong.github.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/basecase-h-de925/" />
+  <meta property="og:site_name" content="labuladong 的算法小抄" />
+  <meta property="og:title" content="base case 和备忘录的初始值怎么定？" />
+  <meta property="og:description" content="Info 数据结构精品课 (https://aep.h5.xeknow.com/s/1XJHEO) 和 递归算法专题课 (https://aep.xet.tech/s/3YGcq3) 限时附赠网站会员！ 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目： LeetCode 力扣 难度 :----: :----: :----: 931. Minim..." />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="zh-CN" />
+  <meta property="article:author" content="labuladong" />
+  <meta property="article:tag" content="动态规划" />
+  <meta property="article:tag" content="核心框架" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"base case 和备忘录的初始值怎么定？","image":[""],"dateModified":null,"author":[{"@type":"Person","name":"labuladong","url":"https://github.com/labuladong"}]}</script>
+  <script src="https://labuladong.gitee.io/algo/assets/js/jq.js" type="text/javascript" defer=""></script>
+  <script src="https://labuladong.gitee.io/algo/assets/js/md.js" type="text/javascript" defer=""></script>
+  <script src="https://labuladong.gitee.io/algo/assets/js/myga.js" type="text/javascript" defer=""></script>
+  <link rel="icon" href="https://labuladong.gitee.io/algo/favicon.ico" />
+  <link rel="icon" href="https://labuladong.gitee.io/algo/assets/icon/avatar.png" type="image/png" sizes="72x72" />
+  <link rel="icon" href="https://labuladong.gitee.io/algo/assets/icon/avatar.png" type="image/png" sizes="152x152" />
+  <link rel="icon" href="https://labuladong.gitee.io/algo/assets/icon/avatar.png" type="image/png" sizes="192x192" />
+  <link rel="icon" href="https://labuladong.gitee.io/algo/assets/icon/avatar.png" type="image/png" sizes="256x256" />
+  <link rel="icon" href="https://labuladong.gitee.io/algo/assets/icon/avatar.png" type="image/png" sizes="512x512" />
+  <link rel="manifest" href="https://labuladong.gitee.io/algo/manifest.webmanifest" crossorigin="use-credentials" />
+  <meta name="theme-color" content="#46bd87" />
+  <link rel="apple-touch-icon" href="https://labuladong.gitee.io/algo/assets/icon/avatar.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="msapplication-TileImage" content="/algo/assets/icon/avatar.png" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>base case 和备忘录的初始值怎么定？ | labuladong 的算法小抄</title>
+  <meta name="description" content="Info 数据结构精品课 (https://aep.h5.xeknow.com/s/1XJHEO) 和 递归算法专题课 (https://aep.xet.tech/s/3YGcq3) 限时附赠网站会员！ 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目： LeetCode 力扣 难度 :----: :----: :----: 931. Minim..." />
+  <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+  <script>const userMode = localStorage.getItem("vuepress-theme-hope-scheme"); const systemDarkMode = window.matchMedia &amp;amp;&amp;amp; window.matchMedia("(prefers-color-scheme: dark)").matches; if (userMode === "dark" || (userMode !== "light" &amp;amp;&amp;amp; systemDarkMode)) { document.documentElement.setAttribute("data-theme", "dark"); }</script>
+  <link rel="preload" href="https://labuladong.gitee.io/algo/assets/style-ba6decac.css" as="style" />
+  <link rel="stylesheet" href="https://labuladong.gitee.io/algo/assets/style-ba6decac.css" />
+  <link rel="modulepreload" href="https://labuladong.gitee.io/algo/assets/app-5a856080.js" />
+  <link rel="modulepreload" href="https://labuladong.gitee.io/algo/assets/index.html-a2460981.js" />
+  <link rel="modulepreload" href="https://labuladong.gitee.io/algo/assets/souyisou1-3b1a371c.js" />
+  <link rel="modulepreload" href="https://labuladong.gitee.io/algo/assets/1-1417b260.js" />
+  <link rel="modulepreload" href="https://labuladong.gitee.io/algo/assets/souyisou2-a43d403f.js" />
+  <link rel="modulepreload" href="https://labuladong.gitee.io/algo/assets/index.html-615cad92.js" />
+ </head>
+ <body>
+  <div id="app">
+   <!--[-->
+   <!--[-->
+   <!--[-->
+   <span tabindex="-1"></span>
+   <a href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/basecase-h-de925/#main-content" class="vp-skip-link sr-only">跳至主要內容</a>
+   <!--]-->
+   <div class="theme-container has-toc">
+    <!--[-->
+    <header id="navbar" class="vp-navbar">
+     <div class="vp-navbar-start">
+      <button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button>
+      <!---->
+      <!--[-->
+      <a class="md-link vp-brand" href="https://labuladong.gitee.io/algo/"><img class="vp-nav-logo" src="https://labuladong.gitee.io/algo/logo.svg" alt="labuladong 的算法小抄" />
+       <!----><span class="vp-site-name hide-in-pad">labuladong 的算法小抄</span></a>
+      <!--]-->
+      <!---->
+     </div>
+     <div class="vp-navbar-center">
+      <!---->
+      <!--[-->
+      <nav class="vp-nav-links">
+       <div class="nav-item hide-in-mobile">
+        <a class="md-link nav-link" href="https://labuladong.gitee.io/algo/home/"><span class="font-icon icon iconfont icon-home" style=""></span>首页
+         <!----></a>
+       </div>
+       <div class="nav-item hide-in-mobile">
+        <a class="md-link nav-link" href="https://labuladong.gitee.io/algo/ds-class/"><span class="font-icon icon iconfont icon-hot" style=""></span>数据结构精品课
+         <!----></a>
+       </div>
+       <div class="nav-item hide-in-mobile">
+        <a class="md-link nav-link" href="https://labuladong.gitee.io/algo/tree-class/"><span class="font-icon icon iconfont icon-hot" style=""></span>二叉树递归专题课
+         <!----></a>
+       </div>
+       <div class="nav-item hide-in-mobile">
+        <a class="md-link nav-link" href="https://labuladong.gitee.io/algo/challenge/"><span class="font-icon icon iconfont icon-hot" style=""></span>刷题打卡挑战
+         <!----></a>
+       </div>
+       <div class="nav-item hide-in-mobile">
+        <div class="dropdown-wrapper">
+         <button type="button" class="dropdown-title" aria-label="配套刷题工具"><span class="title"><span class="font-icon icon iconfont icon-plugin" style=""></span>配套刷题工具</span><span class="arrow"></span>
+          <ul class="nav-dropdown">
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/intro/visualize/"><span class="font-icon icon iconfont icon-tree" style=""></span>算法可视化面板
+             <!----></a></li>
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/intro/chrome/"><span class="font-icon icon iconfont icon-chrome" style=""></span>Chrome 插件
+             <!----></a></li>
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/intro/vscode/"><span class="font-icon icon iconfont icon-vscode" style=""></span>vscode 插件
+             <!----></a></li>
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/intro/jetbrains/"><span class="font-icon icon iconfont icon-view" style=""></span>Jetbrains 插件
+             <!----></a></li>
+          </ul></button>
+        </div>
+       </div>
+       <div class="nav-item hide-in-mobile">
+        <div class="dropdown-wrapper">
+         <button type="button" class="dropdown-title" aria-label="更新日志"><span class="title"><span class="font-icon icon iconfont icon-update" style=""></span>更新日志</span><span class="arrow"></span>
+          <ul class="nav-dropdown">
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/changelog/website/"><span class="font-icon icon iconfont icon-discover" style=""></span>网站更新日志
+             <!----></a></li>
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/changelog/chrome/"><span class="font-icon icon iconfont icon-chrome" style=""></span>Chrome 插件更新日志
+             <!----></a></li>
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/changelog/vscode/"><span class="font-icon icon iconfont icon-vscode" style=""></span>vscode 插件更新日志
+             <!----></a></li>
+           <li class="dropdown-item"><a class="md-link nav-link" href="https://labuladong.gitee.io/algo/changelog/jetbrain/"><span class="font-icon icon iconfont icon-view" style=""></span>Jetbrains 插件更新日志
+             <!----></a></li>
+          </ul></button>
+        </div>
+       </div>
+      </nav>
+      <!--]-->
+      <!---->
+     </div>
+     <div class="vp-navbar-end">
+      <!--[-->
+      <!--v-if-->
+      <!--v-if-->
+      <!--]-->
+      <!--[-->
+      <!---->
+      <div class="nav-item vp-repo">
+       <a class="vp-repo-link" href="https://github.com/labuladong/fucking-algorithm" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;">
+         <path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path>
+        </svg></a>
+      </div>
+      <div class="nav-item hide-in-mobile">
+       <button type="button" class="outlook-button" tabindex="-1" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon">
+         <path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path>
+        </svg>
+        <div class="outlook-dropdown">
+         <!---->
+        </div></button>
+      </div>
+      <!--[-->
+      <div id="docsearch-container" style="display:none;"></div>
+      <div>
+       <button type="button" class="DocSearch DocSearch-Button" aria-label="Search"><span class="DocSearch-Button-Container">
+         <svg width="20" height="20" class="DocSearch-Search-Icon" viewbox="0 0 20 20">
+          <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+         </svg><span class="DocSearch-Button-Placeholder">Search</span></span><span class="DocSearch-Button-Keys"><kbd class="DocSearch-Button-Key">
+          <svg width="15" height="15" class="DocSearch-Control-Key-Icon">
+           <path d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953" stroke-width="1.2" stroke="currentColor" fill="none" stroke-linecap="square"></path>
+          </svg></kbd><kbd class="DocSearch-Button-Key">K</kbd></span></button>
+      </div>
+      <!--]-->
+      <!--]-->
+      <!---->
+      <button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button>
+     </div>
+    </header>
+    <!---->
+    <!--]-->
+    <!---->
+    <div class="toggle-sidebar-wrapper">
+     <span class="arrow start"></span>
+    </div>
+    <aside id="sidebar" class="vp-sidebar" data-v-7a4c1bdf="">
+     <!---->
+     <ul class="vp-sidebar-links">
+      <li>
+       <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/home/"><span class="font-icon icon iconfont icon-read" style=""></span>本站简介
+        <!----></a>
+       <ul class="vp-sidebar-sub-headers"></ul>
+       <!--]--></li>
+      <li>
+       <section class="vp-sidebar-group">
+        <button class="vp-sidebar-heading clickable" type="button">
+         <!----><span class="vp-sidebar-title">准备工作：安装刷题全家桶</span><span class="vp-arrow end"></span></button>
+        <!---->
+       </section></li>
+      <li>
+       <section class="vp-sidebar-group">
+        <button class="vp-sidebar-heading clickable" type="button">
+         <!----><span class="vp-sidebar-title">第零章、核心框架汇总</span><span class="vp-arrow end"></span></button>
+        <!---->
+       </section></li>
+      <li>
+       <section class="vp-sidebar-group">
+        <button class="vp-sidebar-heading clickable" type="button">
+         <!----><span class="vp-sidebar-title">第一章、手把手刷数据结构</span><span class="vp-arrow end"></span></button>
+        <!---->
+       </section></li>
+      <li>
+       <section class="vp-sidebar-group">
+        <button class="vp-sidebar-heading clickable active" type="button">
+         <!----><span class="vp-sidebar-title">第二章、手把手刷动态规划</span><span class="vp-arrow down"></span></button>
+        <ul class="vp-sidebar-links">
+         <li>
+          <section class="vp-sidebar-group">
+           <button class="vp-sidebar-heading clickable active" type="button">
+            <!----><span class="vp-sidebar-title">动态规划基本技巧</span><span class="vp-arrow down"></span></button>
+           <ul class="vp-sidebar-links">
+            <li>
+             <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dong-tai-g-1e688/"><span class="font-icon icon iconfont icon-read" style=""></span>动态规划解题套路框架
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers"></ul>
+             <!--]--></li>
+            <li>
+             <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dong-tai-g-6ea57/"><span class="font-icon icon iconfont icon-read" style=""></span>动态规划设计：最长递增子序列
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers"></ul>
+             <!--]--></li>
+            <li>
+             <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/zui-you-zi-fbef6/"><span class="font-icon icon iconfont icon-read" style=""></span>最优子结构原理和 dp 数组遍历方向
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers"></ul>
+             <!--]--></li>
+            <li>
+             <!--[--><a class="md-link nav-link active vp-sidebar-link vp-sidebar-page active" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/basecase-h-de925/"><span class="font-icon icon iconfont icon-read" style=""></span>base case 和备忘录的初始值怎么定？
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers">
+              <li class="vp-sidebar-sub-header"><a class="md-link nav-link vp-sidebar-link vp-heading" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/basecase-h-de925/#.html">
+                <!---->
+                <!----></a>
+               <ul class="vp-sidebar-sub-headers"></ul></li>
+             </ul>
+             <!--]--></li>
+            <li>
+             <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dong-tai-g-2526f/"><span class="font-icon icon iconfont icon-lock" style=""></span>动态规划穷举的两种视角
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers"></ul>
+             <!--]--></li>
+            <li>
+             <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dong-tai-g-f0a05/"><span class="font-icon icon iconfont icon-read" style=""></span>动态规划和回溯算法的思维转换
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers"></ul>
+             <!--]--></li>
+            <li>
+             <!--[--><a class="md-link nav-link vp-sidebar-link vp-sidebar-page" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dui-dong-t-8e7bf/"><span class="font-icon icon iconfont icon-read" style=""></span>对动态规划进行降维打击
+              <!----></a>
+             <ul class="vp-sidebar-sub-headers"></ul>
+             <!--]--></li>
+           </ul>
+          </section></li>
+         <li>
+          <section class="vp-sidebar-group">
+           <button class="vp-sidebar-heading clickable" type="button">
+            <!----><span class="vp-sidebar-title">子序列类型问题</span><span class="vp-arrow end"></span></button>
+           <!---->
+          </section></li>
+         <li>
+          <section class="vp-sidebar-group">
+           <button class="vp-sidebar-heading clickable" type="button">
+            <!----><span class="vp-sidebar-title">背包类型问题</span><span class="vp-arrow end"></span></button>
+           <!---->
+          </section></li>
+         <li>
+          <section class="vp-sidebar-group">
+           <button class="vp-sidebar-heading clickable" type="button">
+            <!----><span class="vp-sidebar-title">用动态规划玩游戏</span><span class="vp-arrow end"></span></button>
+           <!---->
+          </section></li>
+         <li>
+          <section class="vp-sidebar-group">
+           <button class="vp-sidebar-heading clickable" type="button">
+            <!----><span class="vp-sidebar-title">贪心类型问题</span><span class="vp-arrow end"></span></button>
+           <!---->
+          </section></li>
+        </ul>
+       </section></li>
+      <li>
+       <section class="vp-sidebar-group">
+        <button class="vp-sidebar-heading clickable" type="button">
+         <!----><span class="vp-sidebar-title">第三章、必知必会算法技巧</span><span class="vp-arrow end"></span></button>
+        <!---->
+       </section></li>
+      <li>
+       <section class="vp-sidebar-group">
+        <button class="vp-sidebar-heading clickable" type="button">
+         <!----><span class="vp-sidebar-title">第四章、通用计算机技术</span><span class="vp-arrow end"></span></button>
+        <!---->
+       </section></li>
+     </ul>
+     <!--[-->
+     <!--      鼠标悬停点击 -->
+     <div style="cursor:pointer;" data-v-7a4c1bdf="">
+      <!--        点击按钮后会从 localStorage 中删除 history key-->
+      <div class="slot-demo-block" data-v-7a4c1bdf="">
+       <span class="font-icon icon iconfont icon-delete" data-v-7a4c1bdf=""></span> 清除阅读历史
+      </div>
+     </div>
+     <!--]-->
+    </aside>
+    <!--[-->
+    <main id="main-content" class="vp-page" data-v-67486e2f="">
+     <!--[-->
+     <!---->
+     <!---->
+     <nav class="vp-breadcrumb disable"></nav>
+     <div class="vp-page-title">
+      <h1>
+       <!----><span class="typewriter-cursor" style="display:inline;">&#xa0;</span></h1>
+      <div class="page-info">
+       <span class="page-author-info" aria-label="作者🖊" data-balloon-pos="down">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="author icon">
+         <path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path>
+        </svg><span><a class="page-author-item" href="https://github.com/labuladong" target="_blank" rel="noopener noreferrer">labuladong</a></span><span property="author" content="labuladong"></span></span>
+       <span class="page-word-info" aria-label="字数🔠" data-balloon-pos="down">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="word icon">
+         <path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path>
+         <path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path>
+        </svg><span>约 5749 字</span>
+        <meta property="wordCount" content="5749" /></span>
+       <span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="timer icon">
+         <path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path>
+        </svg><span>大约 19 分钟</span>
+        <meta property="timeRequired" content="PT19M" /></span>
+       <span class="page-tag-info" aria-label="标签🏷" data-balloon-pos="down">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon tag-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="tag icon">
+         <path d="M939.902 458.563L910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 000 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z"></path>
+        </svg>
+        <!--[--><span class="page-tag-item tag6" role="">动态规划</span><span class="page-tag-item tag0" role="">核心框架</span>
+        <!--]-->
+        <meta property="keywords" content="动态规划,核心框架" /></span>
+      </div>
+      <hr />
+     </div>
+     <div class="toc-place-holder">
+      <aside id="toc">
+       <!--[-->
+       <div style="cursor:pointer;" data-v-67486e2f="">
+        <a href="https://labuladong.gitee.io/algo/intro/chrome/" data-v-67486e2f="">
+         <!--[-->
+         <!--      否则，显示这个 div-->
+         <div class="ext-disconnected" data-v-67486e2f="">
+          <span class="font-icon icon iconfont icon-warn" data-v-67486e2f=""></span> &nbsp;插件未连接
+         </div>
+         <!--]--></a>
+       </div>
+       <div style="cursor:pointer;" data-v-67486e2f="">
+        <div data-v-67486e2f="">
+         <a href="https://opedk.xet.tech/s/1Xtljt" class="ext-disconnected" target="_blank" data-v-67486e2f=""><span class="font-icon icon iconfont icon-warn" data-v-67486e2f=""></span> &nbsp;网站会员未解锁</a>
+        </div>
+       </div>
+       <div style="display:flex;justify-content:center;align-items:center;" data-v-67486e2f="">
+        <a class="helper-btn" href="https://labuladong.gitee.io/algo/intro/site-vip" target="_blank" data-v-67486e2f=""><span class="font-icon icon iconfont icon-question" data-v-67486e2f=""></span>&nbsp;遇到问题</a>
+       </div>
+       <!--]-->
+       <div class="toc-header">
+         此页内容
+        <!---->
+       </div>
+       <div class="toc-wrapper">
+        <ul class="toc-list">
+         <!--[-->
+         <li class="toc-item"><a class="md-link toc-link level2" href="https://labuladong.gitee.io/algo/#.html"></a></li>
+         <!---->
+         <!--]-->
+        </ul>
+        <div class="toc-marker" style="top:-1.7rem;"></div>
+       </div>
+       <!--[-->
+       <!---->
+       <!--]-->
+      </aside>
+     </div>
+     <!---->
+     <div class="theme-hope-content">
+      <div style="display:none;">
+       <h2 id="" tabindex="-1"><a class="header-anchor" href="#" aria-hidden="true">#</a></h2>
+      </div>
+      <div class="img-content">
+       <img src="https://labuladong.gitee.io/algo/images/souyisou1.png" class="myimage" />
+      </div>
+      <div class="hint-container info">
+       <p class="hint-container-title">Info</p>
+       <p><strong><a href="https://aep.h5.xeknow.com/s/1XJHEO" target="_blank" rel="noopener noreferrer">数据结构精品课<span>
+           <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+            <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+            <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+           </svg><span class="external-link-icon-sr-only">open in new window</span></span></a> 和 <a href="https://aep.xet.tech/s/3YGcq3" target="_blank" rel="noopener noreferrer">递归算法专题课<span>
+           <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+            <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+            <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+           </svg><span class="external-link-icon-sr-only">open in new window</span></span></a> 限时附赠网站会员！</strong></p>
+      </div>
+      <p>读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：</p>
+      <table>
+       <thead>
+        <tr>
+         <th style="text-align:center;">LeetCode</th>
+         <th style="text-align:center;">力扣</th>
+         <th style="text-align:center;">难度</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td style="text-align:center;"><a href="https://leetcode.com/problems/minimum-falling-path-sum/" target="_blank" rel="noopener noreferrer">931. Minimum Falling Path Sum<span>
+            <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+             <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+             <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+            </svg><span class="external-link-icon-sr-only">open in new window</span></span></a></td>
+         <td style="text-align:center;"><a href="https://leetcode.cn/problems/minimum-falling-path-sum/" target="_blank" rel="noopener noreferrer">931. 下降路径最小和<span>
+            <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+             <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+             <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+            </svg><span class="external-link-icon-sr-only">open in new window</span></span></a></td>
+         <td style="text-align:center;">🟠</td>
+        </tr>
+       </tbody>
+      </table>
+      <p>很多读者对动态规划问题的 base case、备忘录初始值等问题存在疑问，本文就专门讲一讲这类问题，顺便聊一聊怎么通过题目的蛛丝马迹揣测出题人的小心思，辅助我们解题。</p>
+      <p>看下力扣第 931 题「<a href="https://leetcode.cn/problems/minimum-falling-path-sum/" target="_blank" rel="noopener noreferrer">下降路径最小和<span>
+         <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+          <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+          <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+         </svg><span class="external-link-icon-sr-only">open in new window</span></span></a>」，输入为一个 <code>n * n</code> 的二维数组 <code>matrix</code>，请你计算从第一行落到最后一行，经过的路径和最小为多少。</p>
+      <p>函数签名如下：</p>
+      <div class="vp-code-tabs">
+       <div class="vp-code-tabs-nav" role="tablist">
+        <button type="button" class="vp-code-tab-nav active" role="tab" aria-controls="codetab-51-0" aria-selected="true">java 🟢</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-51-1" aria-selected="false">cpp 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-51-2" aria-selected="false">python 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-51-3" aria-selected="false">go 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-51-4" aria-selected="false">javascript 🤖</button>
+       </div>
+       <!--[-->
+       <div class="vp-code-tab active" id="codetab-51-0" role="tabpanel" aria-expanded="true">
+        <div class="language-java line-numbers-mode" data-ext="java">
+         <pre class="language-java"><code><span class="token keyword">int</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-51-1" role="tabpanel" aria-expanded="false">
+        <div class="language-cpp line-numbers-mode" data-ext="cpp">
+         <pre class="language-cpp"><code><span class="token comment">// 注意：cpp 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">int</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span><span class="token operator">&amp;</span> matrix<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-51-2" role="tabpanel" aria-expanded="false">
+        <div class="language-python line-numbers-mode" data-ext="py">
+         <pre class="language-python"><code><span class="token comment"># 注意：python 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment"># 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">def</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">int</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-51-3" role="tabpanel" aria-expanded="false">
+        <div class="language-go line-numbers-mode" data-ext="go">
+         <pre class="language-go"><code><span class="token comment">// 注意：go 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">func</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>matrix <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-51-4" role="tabpanel" aria-expanded="false">
+        <div class="language-javascript line-numbers-mode" data-ext="js">
+         <pre class="language-javascript"><code><span class="token comment">// 注意：javascript 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">minFallingPathSum</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">matrix</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token comment">// function code here</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <!--]-->
+      </div>
+      <p>就是说你可以站在 <code>matrix</code> 的第一行的任意一个元素，需要下降到最后一行。</p>
+      <p>每次下降，可以向下、向左下、向右下三个方向移动一格。也就是说，可以从 <code>matrix[i][j]</code> 降到 <code>matrix[i+1][j]</code> 或 <code>matrix[i+1][j-1]</code> 或 <code>matrix[i+1][j+1]</code> 三个位置。</p>
+      <p>请你计算下降的「最小路径和」，比如说题目给了一个例子：</p>
+      <div class="img-content">
+       <img src="https://labuladong.gitee.io/algo/images/备忘录基础/title.jpg" class="myimage" />
+      </div>
+      <p>我们前文写过两道「路径和」相关的文章：<a href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/yong-dong--63ceb/dong-tai-g-52f34/" class="">动态规划之最小路径和</a> 和 <a href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/yong-dong--63ceb/dong-tai-g-f43a3/" class="">用动态规划算法通关魔塔</a>。</p>
+      <p>今天这道题也是类似的，不算是困难的题目，所以<strong>我们借这道题来讲讲 base case 的返回值、备忘录的初始值、索引越界情况的返回值如何确定</strong>。</p>
+      <p>不过还是要通过 <a href="https://labuladong.gitee.io/algo/di-ling-zh-bfe1b/dong-tai-g-1e688/" class="">动态规划的标准套路</a> 介绍一下这道题的解题思路，首先我们可以定义一个 <code>dp</code> 数组：</p>
+      <div class="vp-code-tabs">
+       <div class="vp-code-tabs-nav" role="tablist">
+        <button type="button" class="vp-code-tab-nav active" role="tab" aria-controls="codetab-87-0" aria-selected="true">java 🟢</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-87-1" aria-selected="false">cpp 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-87-2" aria-selected="false">python 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-87-3" aria-selected="false">go 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-87-4" aria-selected="false">javascript 🤖</button>
+       </div>
+       <!--[-->
+       <div class="vp-code-tab active" id="codetab-87-0" role="tabpanel" aria-expanded="true">
+        <div class="language-java line-numbers-mode" data-ext="java">
+         <pre class="language-java"><code><span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-87-1" role="tabpanel" aria-expanded="false">
+        <div class="language-cpp line-numbers-mode" data-ext="cpp">
+         <pre class="language-cpp"><code><span class="token comment">// 注意：cpp 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token operator">*</span> matrix<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-87-2" role="tabpanel" aria-expanded="false">
+        <div class="language-python line-numbers-mode" data-ext="py">
+         <pre class="language-python"><code><span class="token comment"># 注意：python 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment"># 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">def</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> j<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-87-3" role="tabpanel" aria-expanded="false">
+        <div class="language-go line-numbers-mode" data-ext="go">
+         <pre class="language-go"><code><span class="token comment">// 注意：go 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">func</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> i <span class="token builtin">int</span><span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-87-4" role="tabpanel" aria-expanded="false">
+        <div class="language-javascript line-numbers-mode" data-ext="js">
+         <pre class="language-javascript"><code><span class="token comment">// 注意：javascript 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">dp</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">matrix<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// code goes here</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <!--]-->
+      </div>
+      <p>这个 <code>dp</code> 函数的含义如下：</p>
+      <p><strong>从第一行（<code>matrix[0][..]</code>）向下落，落到位置 <code>matrix[i][j]</code> 的最小路径和为 <code>dp(matrix, i, j)</code></strong>。</p>
+      <p>根据这个定义，我们可以把主函数的逻辑写出来：</p>
+      <div class="vp-code-tabs">
+       <div class="vp-code-tabs-nav" role="tablist">
+        <button type="button" class="vp-code-tab-nav active" role="tab" aria-controls="codetab-113-0" aria-selected="true">java 🟢</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-113-1" aria-selected="false">cpp 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-113-2" aria-selected="false">python 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-113-3" aria-selected="false">go 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-113-4" aria-selected="false">javascript 🤖</button>
+       </div>
+       <!--[-->
+       <div class="vp-code-tab active" id="codetab-113-0" role="tabpanel" aria-expanded="true">
+        <div class="language-java line-numbers-mode" data-ext="java">
+         <pre class="language-java"><code><span class="token keyword">int</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token constant">MAX_VALUE</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 终点可能在最后一行的任意一列</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        res <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-113-1" role="tabpanel" aria-expanded="false">
+        <div class="language-cpp line-numbers-mode" data-ext="cpp">
+         <pre class="language-cpp"><code><span class="token comment">// 注意：cpp 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">int</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span><span class="token operator">&amp;</span> matrix<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> matrix<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> res <span class="token operator">=</span> INT_MAX<span class="token punctuation">;</span>
+
+    <span class="token comment">// 终点可能在最后一行的任意一列</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        res <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-113-2" role="tabpanel" aria-expanded="false">
+        <div class="language-python line-numbers-mode" data-ext="py">
+         <pre class="language-python"><code><span class="token comment"># 注意：python 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment"># 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">def</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+    n <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span>
+    res <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">"inf"</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 终点可能在最后一行的任意一列</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        res <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> res
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-113-3" role="tabpanel" aria-expanded="false">
+        <div class="language-go line-numbers-mode" data-ext="go">
+         <pre class="language-go"><code><span class="token comment">// 注意：go 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">func</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>matrix <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    n <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span>
+    res <span class="token operator">:=</span> math<span class="token punctuation">.</span>MaxInt32
+
+    <span class="token comment">// 终点可能在最后一行的任意一列</span>
+    <span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+        res <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-113-4" role="tabpanel" aria-expanded="false">
+        <div class="language-javascript line-numbers-mode" data-ext="js">
+         <pre class="language-javascript"><code><span class="token comment">// 注意：javascript 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">minFallingPathSum</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">matrix</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> n <span class="token operator">=</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> res <span class="token operator">=</span> Number<span class="token punctuation">.</span><span class="token constant">MAX_VALUE</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 终点可能在最后一行的任意一列</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <!--]-->
+      </div>
+      <p>因为我们可能落到最后一行的任意一列，所以要穷举一下，看看落到哪一列才能得到最小的路径和。</p>
+      <p>接下来看看 <code>dp</code> 函数如何实现。</p>
+      <p>对于 <code>matrix[i][j]</code>，只有可能从 <code>matrix[i-1][j], matrix[i-1][j-1], matrix[i-1][j+1]</code> 这三个位置转移过来。</p>
+      <div class="img-content">
+       <img src="https://labuladong.gitee.io/algo/images/备忘录基础/1.jpeg" class="myimage" />
+      </div>
+      <p><strong>那么，只要知道到达 <code>(i-1, j), (i-1, j-1), (i-1, j+1)</code> 这三个位置的最小路径和，加上 <code>matrix[i][j]</code> 的值，就能够计算出来到达位置 <code>(i, j)</code> 的最小路径和</strong>：</p>
+      <div class="vp-code-tabs">
+       <div class="vp-code-tabs-nav" role="tablist">
+        <button type="button" class="vp-code-tab-nav active" role="tab" aria-controls="codetab-143-0" aria-selected="true">java 🟢</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-143-1" aria-selected="false">cpp 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-143-2" aria-selected="false">python 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-143-3" aria-selected="false">go 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-143-4" aria-selected="false">javascript 🤖</button>
+       </div>
+       <!--[-->
+       <div class="vp-code-tab active" id="codetab-143-0" role="tabpanel" aria-expanded="true">
+        <div class="language-java line-numbers-mode" data-ext="java">
+         <pre class="language-java"><code><span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 非法索引检查</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+        i <span class="token operator">&gt;=</span> matrix<span class="token punctuation">.</span>length <span class="token operator">||</span>
+        j <span class="token operator">&gt;=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 返回一个特殊值</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// base case</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 状态转移</span>
+    <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token doc-comment comment">/**<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>extend</span> <span class="token attr-name">up</span> <span class="token attr-name">-200</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>img-content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/algo/images/备忘录基础/1.jpeg<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>myimage<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> */</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-143-1" role="tabpanel" aria-expanded="false">
+        <div class="language-cpp line-numbers-mode" data-ext="cpp">
+         <pre class="language-cpp"><code><span class="token comment">// 注意：cpp 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span><span class="token operator">&amp;</span> matrix<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 非法索引检查</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+        i <span class="token operator">&gt;=</span> matrix<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+        j <span class="token operator">&gt;=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 返回一个特殊值</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// base case</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 状态转移</span>
+    <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token comment">/**&lt;extend up -200&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; */</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-143-2" role="tabpanel" aria-expanded="false">
+        <div class="language-python line-numbers-mode" data-ext="py">
+         <pre class="language-python"><code><span class="token comment"># 注意：python 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment"># 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">def</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> j<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+    <span class="token comment"># 非法索引检查</span>
+    <span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">or</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">or</span> i <span class="token operator">&gt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span> <span class="token keyword">or</span> j <span class="token operator">&gt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 返回一个特殊值</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span>
+    <span class="token comment"># base case</span>
+    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+    <span class="token comment"># 状态转移</span>
+    <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token builtin">min</span><span class="token punctuation">(</span> <span class="token comment"># &lt;extend up -200&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; #</span>
+            dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-143-3" role="tabpanel" aria-expanded="false">
+        <div class="language-go line-numbers-mode" data-ext="go">
+         <pre class="language-go"><code><span class="token comment">// 注意：go 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">func</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> i <span class="token builtin">int</span><span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 非法索引检查</span>
+    <span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+        i <span class="token operator">&gt;=</span> <span class="token function">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span> <span class="token operator">||</span> j <span class="token operator">&gt;=</span> <span class="token function">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 返回一个特殊值</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// base case</span>
+    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 状态转移</span>
+    <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token comment">/**&lt;extend up -200&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; */</span>
+        <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">min</span><span class="token punctuation">(</span>a <span class="token builtin">int</span><span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">,</span> c <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> a <span class="token operator">&lt;</span> b <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> a <span class="token operator">&lt;</span> c <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> a
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> c
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> b <span class="token operator">&lt;</span> c <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> b
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> c
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-143-4" role="tabpanel" aria-expanded="false">
+        <div class="language-javascript line-numbers-mode" data-ext="js">
+         <pre class="language-javascript"><code><span class="token comment">// 注意：javascript 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">dp</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">matrix<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 非法索引检查</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+        i <span class="token operator">&gt;=</span> matrix<span class="token punctuation">.</span>length <span class="token operator">||</span>
+        j <span class="token operator">&gt;=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 返回一个特殊值</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// base case</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 状态转移</span>
+    <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token doc-comment comment">/**&lt;extend up -200&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; */</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">min</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <!--]-->
+      </div>
+      <p>当然，上述代码是暴力穷举解法，我们可以用备忘录的方法消除重叠子问题，完整代码如下：</p>
+      <div class="vp-code-tabs">
+       <div class="vp-code-tabs-nav" role="tablist">
+        <button type="button" class="vp-code-tab-nav active" role="tab" aria-controls="codetab-163-0" aria-selected="true">java 🟢</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-163-1" aria-selected="false">cpp 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-163-2" aria-selected="false">python 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-163-3" aria-selected="false">go 🤖</button>
+        <button type="button" class="vp-code-tab-nav" role="tab" aria-controls="codetab-163-4" aria-selected="false">javascript 🤖</button>
+       </div>
+       <!--[-->
+       <div class="vp-code-tab active" id="codetab-163-0" role="tabpanel" aria-expanded="true">
+        <div class="language-java line-numbers-mode" data-ext="java">
+         <pre class="language-java"><code><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> n <span class="token operator">=</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token constant">MAX_VALUE</span><span class="token punctuation">;</span>
+        <span class="token comment">// 备忘录里的值初始化为 66666</span>
+        memo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span>memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">66666</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 终点可能在 matrix[n-1] 的任意一列</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 备忘录</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> memo<span class="token punctuation">;</span>
+
+    <span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 1、索引合法性检查</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+            i <span class="token operator">&gt;=</span> matrix<span class="token punctuation">.</span>length <span class="token operator">||</span>
+            j <span class="token operator">&gt;=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">return</span> <span class="token number">99999</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 2、base case</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 3、查找备忘录，防止重复计算</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">66666</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 进行状态转移</span>
+        memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span>
+                <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token doc-comment comment">/**<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>extend</span> <span class="token attr-name">up</span> <span class="token attr-name">-100</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>img-content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/algo/images/备忘录基础/1.jpeg<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>myimage<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> */</span>
+        <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-163-1" role="tabpanel" aria-expanded="false">
+        <div class="language-cpp line-numbers-mode" data-ext="cpp">
+         <pre class="language-cpp"><code><span class="token comment">// 注意：cpp 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span><span class="token operator">&amp;</span> matrix<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> n <span class="token operator">=</span> matrix<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> INT_MAX<span class="token punctuation">;</span>
+        <span class="token comment">// 备忘录里的值初始化为 66666</span>
+        vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span> <span class="token function">memo</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">vector</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> <span class="token number">66666</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 终点可能在 matrix[n-1] 的任意一列</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span><span class="token operator">&amp;</span> matrix<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;&gt;</span><span class="token operator">&amp;</span> memo<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 1、索引合法性检查</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+            i <span class="token operator">&gt;=</span> matrix<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+            j <span class="token operator">&gt;=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">return</span> <span class="token number">99999</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 2、base case</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 3、查找备忘录，防止重复计算</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">66666</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 进行状态转移</span>
+        memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span>
+                <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">/**&lt;extend up -100&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; */</span>
+        <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-163-2" role="tabpanel" aria-expanded="false">
+        <div class="language-python line-numbers-mode" data-ext="py">
+         <pre class="language-python"><code><span class="token comment"># 注意：python 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment"># 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        n <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span>
+        res <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span>
+        <span class="token comment"># initialize memo to 66666</span>
+        memo <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">66666</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token comment"># the ending point can be any column of matrix[n-1]</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            res <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> self<span class="token punctuation">.</span>dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> memo<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token comment"># memoization</span>
+    <span class="token keyword">def</span> <span class="token function">dp</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> j<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> memo<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token comment"># 1. check index validity</span>
+        <span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">or</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">or</span> i <span class="token operator">&gt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span> <span class="token keyword">or</span> j <span class="token operator">&gt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">99999</span>
+        <span class="token comment"># 2. base case</span>
+        <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+        <span class="token comment"># 3. look up memo to avoid repeated calculation</span>
+        <span class="token keyword">if</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">66666</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+        <span class="token comment"># state transition</span>
+        memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token builtin">min</span><span class="token punctuation">(</span>
+            self<span class="token punctuation">.</span>dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> memo<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> memo<span class="token punctuation">)</span> <span class="token keyword">if</span> j <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">else</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>dp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> memo<span class="token punctuation">)</span> <span class="token keyword">if</span> j <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment"># &lt;extend up -100&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; #</span>
+        <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-163-3" role="tabpanel" aria-expanded="false">
+        <div class="language-go line-numbers-mode" data-ext="go">
+         <pre class="language-go"><code><span class="token comment">// 注意：go 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">func</span> <span class="token function">minFallingPathSum</span><span class="token punctuation">(</span>matrix <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    n <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span>
+    res <span class="token operator">:=</span> math<span class="token punctuation">.</span>MaxInt32
+    <span class="token comment">// 备忘录里的值初始化为 66666</span>
+    memo <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+            memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">66666</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 终点可能在 matrix[n-1] 的任意一列</span>
+    <span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+        res <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 备忘录</span>
+<span class="token keyword">func</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> memo <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 1、索引合法性检查</span>
+    <span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+        i <span class="token operator">&gt;=</span> <span class="token function">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span> <span class="token operator">||</span>
+        j <span class="token operator">&gt;=</span> <span class="token function">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 2、base case</span>
+    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 3、查找备忘录，防止重复计算</span>
+    <span class="token keyword">if</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">66666</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 进行状态转移</span>
+    memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span>
+        <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> memo<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> a <span class="token operator">&lt;</span> b <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> b
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> c<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <div class="vp-code-tab" id="codetab-163-4" role="tabpanel" aria-expanded="false">
+        <div class="language-javascript line-numbers-mode" data-ext="js">
+         <pre class="language-javascript"><code><span class="token comment">// 注意：javascript 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。</span>
+<span class="token comment">// 本代码还未经过力扣测试，仅供参考，如有疑惑，可以参照我写的 java 代码对比查看。</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">minFallingPathSum</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">matrix</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> n <span class="token operator">=</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> res <span class="token operator">=</span> <span class="token number">Infinity</span><span class="token punctuation">;</span>
+    <span class="token comment">// 备忘录里的值初始化为 66666</span>
+    <span class="token keyword">var</span> memo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">66666</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">66666</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 终点可能在 matrix[n-1] 的任意一列</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> memo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">dp</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">matrix<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> memo</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 1、索引合法性检查</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span>
+        i <span class="token operator">&gt;=</span> matrix<span class="token punctuation">.</span>length <span class="token operator">||</span>
+        j <span class="token operator">&gt;=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">99999</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 2、base case</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 3、查找备忘录，防止重复计算</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">66666</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 进行状态转移</span>
+    memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> memo<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> memo<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> memo<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token doc-comment comment">/**&lt;extend up -100&gt;&lt;div class="img-content"&gt;&lt;img src="/algo/images/备忘录基础/1.jpeg" class="myimage"/&gt;&lt;/div&gt; */</span>
+    <span class="token keyword">return</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">min</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+         <div class="line-numbers" aria-hidden="true">
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+          <div class="line-number"></div>
+         </div>
+        </div>
+       </div>
+       <!--]-->
+      </div>
+      <!---->
+      <p>如果看过我们公众号之前的动态规划系列文章，这个解题思路应该是非常容易理解的。</p>
+      <p><strong>那么本文对于这个 <code>dp</code> 函数仔细探讨三个问题</strong>：</p>
+      <p>1、对于索引的合法性检测，返回值为什么是 99999？其他的值行不行？</p>
+      <p>2、base case 为什么是 <code>i == 0</code>？</p>
+      <p>3、备忘录 <code>memo</code> 的初始值为什么是 66666？其他值行不行？</p>
+      <p><strong>首先，说说 base case 为什么是 <code>i == 0</code>，返回值为什么是 <code>matrix[0][j]</code>，这是根据 <code>dp</code> 函数的定义所决定的</strong>。</p>
+      <p>回顾我们的 <code>dp</code> 函数定义：</p>
+      <p>从第一行（<code>matrix[0][..]</code>）向下落，落到位置 <code>matrix[i][j]</code> 的最小路径和为 <code>dp(matrix, i, j)</code>。</p>
+      <p>根据这个定义，我们就是从 <code>matrix[0][j]</code> 开始下落。那如果我们想落到的目的地就是 <code>i == 0</code>，所需的路径和当然就是 <code>matrix[0][j]</code> 呗。</p>
+      <p><strong>再说说备忘录 <code>memo</code> 的初始值为什么是 66666，这是由题目给出的数据范围决定的</strong>。</p>
+      <p>备忘录 <code>memo</code> 数组的作用是什么？</p>
+      <p>就是防止重复计算，将 <code>dp(matrix, i, j)</code> 的计算结果存进 <code>memo[i][j]</code>，遇到重复计算可以直接返回。</p>
+      <p>那么，我们必须要知道 <code>memo[i][j]</code> 到底存储计算结果没有，对吧？如果存结果了，就直接返回；没存，就去递归计算。</p>
+      <p>所以，<code>memo</code> 的初始值一定得是特殊值，和合法的答案有所区分。</p>
+      <p>我们回过头看看题目给出的数据范围：</p>
+      <blockquote>
+       <p><code>matrix</code> 是 <code>n x n</code> 的二维数组，其中 <code>1 &lt;= n &lt;= 100</code>；对于二维数组中的元素，有 <code>-100 &lt;= matrix[i][j] &lt;= 100</code>。</p>
+      </blockquote>
+      <p>假设 <code>matrix</code> 的大小是 100 x 100，所有元素都是 100，那么从第一行往下落，得到的路径和就是 100 x 100 = 10000，也就是最大的合法答案。</p>
+      <p>类似的，依然假设 <code>matrix</code> 的大小是 100 x 100，所有元素是 -100，那么从第一行往下落，就得到了最小的合法答案 -100 x 100 = -10000。</p>
+      <p>也就是说，这个问题的合法结果会落在区间 <code>[-10000, 10000]</code> 中。</p>
+      <p>所以，我们 <code>memo</code> 的初始值就要避开区间 <code>[-10000, 10000]</code>，换句话说，<code>memo</code> 的初始值只要在区间 <code>(-inf, -10001] U [10001, +inf)</code> 中就可以。</p>
+      <p><strong>最后，说说对于不合法的索引，返回值应该如何确定，这需要根据我们状态转移方程的逻辑确定</strong>。</p>
+      <p>对于这道题，状态转移的基本逻辑如下：</p>
+      <div class="language-java line-numbers-mode" data-ext="java">
+       <pre class="language-java"><code><span class="token keyword">int</span> <span class="token function">dp</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">return</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token function">min</span><span class="token punctuation">(</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">dp</span><span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+       <div class="line-numbers" aria-hidden="true">
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+        <div class="line-number"></div>
+       </div>
+      </div>
+      <p>显然，<code>i - 1, j - 1, j + 1</code> 这几个运算可能会造成索引越界，对于索引越界的 <code>dp</code> 函数，应该返回一个不可能被取到的值。</p>
+      <p>因为我们调用的是 <code>min</code> 函数，最终返回的值是最小值，所以对于不合法的索引，只要 <code>dp</code> 函数返回一个永远不会被取到的最大值即可。</p>
+      <p>刚才说了，合法答案的区间是 <code>[-10000, 10000]</code>，所以我们的返回值只要大于 10000 就相当于一个永不会取到的最大值。</p>
+      <p>换句话说，只要返回区间 <code>[10001, +inf)</code> 中的一个值，就能保证不会被取到。</p>
+      <p>至此，我们就把动态规划相关的三个细节问题举例说明了。</p>
+      <p><strong>拓展延伸一下，建议大家做题时，除了题意本身，一定不要忽视题目给定的其他信息</strong>。</p>
+      <p>本文举的例子，测试用例数据范围可以确定「什么是特殊值」，从而帮助我们将思路转化成代码。</p>
+      <p>除此之外，数据范围还可以帮我们估算算法的时间/空间复杂度。</p>
+      <p>比如说，有的算法题，你只想到一个暴力求解思路，时间复杂度比较高。如果发现题目给定的数据量比较大，那么肯定可以说明这个求解思路有问题或者存在优化的空间。</p>
+      <p>除了数据范围，有时候题目还会限制我们算法的时间复杂度，这种信息其实也暗示着一些东西。</p>
+      <p>比如要求我们的算法复杂度是 <code>O(NlogN)</code>，你想想怎么才能搞出一个对数级别的复杂度呢？</p>
+      <p>肯定得用到 <a href="https://labuladong.gitee.io/algo/di-ling-zh-bfe1b/wo-xie-le--3c789/" class="">二分搜索</a> 或者二叉树相关的数据结构，比如 <code>TreeMap</code>，<code>PriorityQueue</code> 之类的对吧。</p>
+      <p>再比如，有时候题目要求你的算法时间复杂度是 <code>O(MN)</code>，这可以联想到什么？</p>
+      <p>可以大胆猜测，常规解法是用 <a href="https://labuladong.gitee.io/algo/di-ling-zh-bfe1b/hui-su-sua-c26da/" class="">回溯算法</a> 暴力穷举，但是更好的解法是动态规划，而且是一个二维动态规划，需要一个 <code>M * N</code> 的二维 <code>dp</code> 数组，所以产生了这样一个时间复杂度。</p>
+      <p>如果你早就胸有成竹了，那就当我没说，毕竟猜测也不一定准确；但如果你本来就没啥解题思路，那有了这些推测之后，最起码可以给你的思路一些方向吧？</p>
+      <p>总之，多动脑筋，不放过任何蛛丝马迹，你不成为刷题小能手才怪。</p>
+      <hr />
+      <details class="hint-container details">
+       <summary><strong>引用本文的文章</strong></summary>
+       <div class="v-sub-catalogs">
+        <!--[-->
+        <a class="vp-link vp-sub-catalog" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/yong-dong--63ceb/lv-you-she-f3b76/" target="_blank"><span class="font-icon icon iconfont icon-read"></span> 旅游省钱大法：加权最短路径</a>
+        <!--]-->
+       </div>
+      </details>
+      <hr />
+      <hr />
+      <details class="hint-container details">
+       <summary><strong>引用本文的题目</strong></summary>
+       <p><strong>安装 <a href="https://labuladong.github.io/article/fname.html?fname=chrome%E6%8F%92%E4%BB%B6%E7%AE%80%E4%BB%8B" target="_blank" rel="noopener noreferrer">我的 Chrome 刷题插件<span>
+           <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+            <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+            <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+           </svg><span class="external-link-icon-sr-only">open in new window</span></span></a> 点开下列题目可直接查看解题思路：</strong></p>
+       <table>
+        <thead>
+         <tr>
+          <th style="text-align:center;">LeetCode</th>
+          <th style="text-align:center;">力扣</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td style="text-align:center;"><a href="https://leetcode.com/problems/unique-paths-ii/?show=1" target="_blank" rel="noopener noreferrer">63. Unique Paths II<span>
+             <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+              <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+              <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+             </svg><span class="external-link-icon-sr-only">open in new window</span></span></a></td>
+          <td style="text-align:center;"><a href="https://leetcode.cn/problems/unique-paths-ii/?show=1" target="_blank" rel="noopener noreferrer">63. 不同路径 II<span>
+             <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15">
+              <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+              <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+             </svg><span class="external-link-icon-sr-only">open in new window</span></span></a></td>
+         </tr>
+        </tbody>
+       </table>
+      </details>
+      <hr />
+      <p><strong>《labuladong 的算法小抄》已经出版，关注公众号查看详情；后台回复「<strong>全家桶</strong>」可下载配套 PDF 和刷题全家桶</strong>：</p>
+      <div class="img-content">
+       <img src="https://labuladong.gitee.io/algo/images/souyisou2.png" class="myimage" />
+      </div>
+      <div id="cmt_number" data="804"></div>
+      <div id="discuss_number" data="997"></div>
+      <div id="redirect_fname" data="备忘录等基础"></div>
+     </div>
+     <!---->
+     <footer class="page-meta">
+      <!---->
+      <div class="meta-item git-info">
+       <!---->
+       <!---->
+      </div>
+     </footer>
+     <nav class="vp-page-nav">
+      <a class="md-link nav-link prev" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/zui-you-zi-fbef6/">
+       <div class="hint">
+        <span class="arrow start"></span>上一页
+       </div>
+       <div class="link">
+        <span class="font-icon icon iconfont icon-read" style=""></span>最优子结构原理和 dp 数组遍历方向
+       </div></a>
+      <a class="md-link nav-link next" href="https://labuladong.gitee.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dong-tai-g-2526f/">
+       <div class="hint">
+         下一页
+        <span class="arrow end"></span>
+       </div>
+       <div class="link">
+         动态规划穷举的两种视角
+        <span class="font-icon icon iconfont icon-lock" style=""></span>
+       </div></a>
+     </nav>
+     <!---->
+     <!--[-->
+     <p style="font-size:14px;color:#586069;text-align:center;" data-v-67486e2f=""><strong data-v-67486e2f="">共同维护高质量学习环境，评论礼仪<a href="https://mp.weixin.qq.com/s/zsiVY5jqDbhcU-OXRf7COg" target="_blank" data-v-67486e2f="">见这里</a>，违者直接拉黑不解释</strong></p>
+     <!--]-->
+     <!--]-->
+    </main>
+    <!--]-->
+    <footer class="vp-footer-wrapper">
+     <!---->
+     <div class="vp-copyright">
+       Copyright © 2023 labuladong
+     </div>
+    </footer>
+   </div>
+   <!--]-->
+   <!---->
+   <!--]-->
+  </div>
+  <script type="module" src="https://labuladong.gitee.io/algo/assets/app-5a856080.js" defer=""></script>
+ </body>
+</html>
